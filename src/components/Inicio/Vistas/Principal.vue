@@ -46,6 +46,8 @@ import Sidebar from "@/components/Inicio/Vistas/Sidebar.vue";
 }
 
 .div4 {
+    width: 100%;
+    height: 100%;
     grid-area: 2 / 2 / 3 / 3;
 }
 </style>

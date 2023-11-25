@@ -3,45 +3,49 @@ import Instituciones from "@/components/Administrador/Instituciones/Institucione
 </script>
 
 <template>
-  <div class="agregar">
-    <div class="titulo d-flex justify-content-center align-items-center">
-      <h3>Agregar nueva institución</h3>
+    <div class="agregar">
+        <div class="titulo d-flex justify-content-center align-items-center">
+            <h3>Agregar nueva institución</h3>
+        </div>
+        <form class="formulario p-4 d-flex flex-column align-items-center">
+            <div class="Nombre pb-3 d-flex flex-column">
+                <label class="form-label">Nombre</label>
+                <input type="text" class="form form-control form-label">
+            </div>
+            <div class="btn btn-primary form-label d-flex justify-content-center align-items-center" @click="">Agregar
+            </div>
+        </form>
     </div>
-    <form class="formulario p-5 d-flex flex-column align-items-center">
-      <div class="Nombre d-flex flex-column">
-        <label class="form-label">Nombre</label>
-        <input type="text" class="form-control form-label">
-      </div>
-      <div class="boton form-label d-flex justify-content-center align-items-center" @click="">Agregar</div>
-    </form>
-  </div>
 </template>
 
 <style scoped>
-.agregar{
-  width: 400px;
-  height: auto;
-  background-color: #fefefe;
-  box-shadow: 8px 0 10px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
+.agregar {
+    width: 400px;
+    height: auto;
+    background-color: #fefefe;
+    box-shadow: 8px 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
 }
 
-.titulo{
-  width: 100%;
-  height: 70px;
-  border-bottom: 2px solid #1B365D;
-  color: #1B365D;
+.form{
+    width: 300px;
 }
-.boton {
-  background: #1B365D;
-  color: #fefefe;
-  width: 207px;
-  height: 45px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
+
+.titulo {
+    font-family: 'Roboto', sans-serif;
+    width: 100%;
+    height: 70px;
+    box-shadow: 0px 2px 4px -3px #1B365D;
+    color: #1B365D;
 }
-.boton:hover{
-  background-color: rgba(27, 54, 93, 0.9);
+
+h3 {
+    line-height: 3;
+    margin: 0;
+}
+
+.btn {
+    width: 300px;
+    height: 45px;
 }
 </style>
