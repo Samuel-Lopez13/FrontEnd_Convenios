@@ -91,8 +91,7 @@ const irInstituciones = () => {
 }
 
 .contrato:hover {
-    background-color: #1B365D;
-    color: white;
+    color: royalblue;
 }
 
 .activo {

@@ -42,13 +42,12 @@ export const NotificacionExito={
 export const NotificacionError = {
     ErrorWMensaje:async (msg="Credenciales no validas", msgE="Algo salió mal") => {
         Swal.fire({
-            background: '#CAA8F5',
             icon: 'error',
             iconColor:'rgba(210,11,11,0.8)',
             showConfirmButton: false,
             html              : `
-                                 <h1 style="color: #432e6c; font-weight: bold">${msg}</h1>
-                                 <b style="color:rgba(132,12,150,0.65)"> ${msgE}</b>`,
+                                 <h1 style="color:#1B365D; font-weight: bold">${msg}</h1>
+                                 <b style="color: #1B365D"> ${msgE}</b>`,
         })
     },
     Error: async (msg="Credenciales no validas") => {

@@ -21,7 +21,6 @@ const noCerrarAgregar = (event) => {
 
 const paginacion = async () => {
     var tamano = await DatosInstituciones.getPaginas()
-
     for (let i = 1; i <= tamano.paginas; i++) {
         paginas.value.push(i)
     }
