@@ -1,4 +1,14 @@
 <script setup>
+import {DatosPersonales} from "@/api/provides/usuario.services";
+import {ref} from "vue";
+
+const Correo = ref('');
+const Password = ref('');
+
+const obtenerDatosUsuario = async () => {
+    await DatosPersonales.loginUser(Correo.value, Password.value);
+}
+
 </script>
 
 <template>
@@ -17,15 +27,15 @@
                       <span class="h1 fw-bold mb-0">Iniciar Sesión</span>
                     </div>
                     <div class="form-outline mb-4">
-                      <input type="email" id="form2Example17" class="form-control form-control-lg" />
+                      <input v-model="Correo" type="email" id="form2Example17" class="form-control form-control-lg" />
                       <label class="form-label" for="form2Example17">Correo Electronico</label>
                     </div>
                     <div class="form-outline mb-4">
-                      <input type="password" id="form2Example27" class="form-control form-control-lg" />
+                      <input v-model="Password" type="password" id="form2Example27" class="form-control form-control-lg" />
                       <label class="form-label" for="form2Example27">Contraseña</label>
                     </div>
                     <div class="pt-1 mb-4">
-                      <button class="btn boton btn-lg btn-block" type="button">Ingresar</button>
+                      <button class="btn boton btn-lg btn-block" type="button" @click="obtenerDatosUsuario()">Ingresar</button>
                     </div>
                     <a class="small olvidar" role="button">¿Olvidaste tu contraseña?</a>
                   </form>
