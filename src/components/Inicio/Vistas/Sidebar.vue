@@ -19,7 +19,7 @@ const irInstituciones = () =>{
 </script>
 
 <template>
-  <nav class="w-100 h-100" style="background-color: gray">
+  <nav class="w-100 h-100" style="background-color: white; box-shadow: 8px 0 10px rgba(0, 0, 0, 0.1)">
     <!-- USUARIO -->
     <div class="user d-flex flex-column align-items-center" v-if="vistaUser">
       <div class="h4 d-flex justify-content-center align-items-center" style="width: 100%; height: 50px;font-weight: bold">CONTRATOS</div>
