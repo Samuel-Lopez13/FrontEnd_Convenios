@@ -11,7 +11,24 @@ const router = createRouter({
     {
       path:'/VistaPrincipal',
       name:'Principal',
-      component:()=>import('../components/Inicio/Vistas/Principal.vue')
+      component:()=>import('../components/Inicio/Vistas/Principal.vue'),
+      children:[
+        {
+          path:'/ContratosAdmin',
+          name:'ContratosAdmin',
+          component:()=>import('../components/Administrador/Contratos/Contratos.vue')
+        },
+        {
+          path:'/UsuariosAdmin',
+          name:'UsuariosAdmin',
+          component:()=>import('../components/Administrador/Usuarios/Usuarios.vue')
+        },
+        {
+          path:'/InstitucionesAdmin',
+          name:'InstitucionesAdmin',
+          component:()=>import('../components/Administrador/Instituciones/Instituciones.vue')
+        }
+      ]
     }
   ]
 })
