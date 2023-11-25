@@ -1,34 +1,46 @@
 <script setup>
+import TuplasInstituciones from "@/components/Administrador/Instituciones/TuplasInstituciones.vue";
+import AgregarInstitucion from "@/components/Administrador/Instituciones/AgregarInstitucion.vue";
+import {ref} from "vue";
 
+const agregar = ref(false)
+
+const cambiarAgregar = () =>{
+  agregar.value = !agregar.value
+}
+const noCerrarAgregar = (event) =>{
+  event.stopPropagation()
+}
 </script>
 
 <template>
-  <div class="parent">
-    <div class="div1 h1 d-flex justify-content-center align-items-center">
+    <div class="titulo w-100 d-flex justify-content-center align-items-center h1" style="height: 100px; color: #1B365D">
       INSTITUCIONES
     </div>
-    <div class="div2 d-flex justify-content-center">
+    <div class="tabla w-100 d-flex justify-content-center">
       <div style="width: 1400px;">
+        <div class="buscar d-flex gap-2 mb-2">
+          <input type="text" class="form-control" placeholder="Buscar..." style="width: 200px;">
+          <button class="btnAdd" @click="cambiarAgregar">Agregar Institución</button>
+        </div>
+        <div class="ventanaAgregar" v-if="agregar" @click="cambiarAgregar">
+          <AgregarInstitucion :visible.sync="agregar" @click="noCerrarAgregar"/>
+        </div>
         <table class="table">
           <thead class="table-primary">
           <tr>
             <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Pais</th>
+            <th scope="col">Identificación</th>
+            <th scope="col">Dirección</th>
             <th scope="col"></th>
             <th scope="col"></th>
           </tr>
           </thead>
           <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-            <td><i class="bi bi-info-circle"></i></td>
-            <td><i class="bi bi-trash3-fill"></i></td>
-          </tr>
+          <TuplasInstituciones/>
           </tbody>
         </table>
         <nav aria-label="Page navigation example">
@@ -40,20 +52,32 @@
             <li class="page-item"><a class="page-link" href="#">Next</a></li>
           </ul>
         </nav>
-      </div>
+        </div>
     </div>
-  </div>
 </template>
 
 <style scoped>
-.parent {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 150px 1fr;
-  grid-column-gap: 0px;
-  grid-row-gap: 0px;
+.ventanaAgregar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* Opacidad aumentada */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Z-index aumentado */
+}
+.btnAdd{
+  background-color: #1B365D;
+  color: white;
+  border-radius: 8px;
+  height: 38px;
+  border: none;
+}
+.btnAdd:hover{
+  background-color: rgba(27, 54, 93, 0.9);
 }
 
-.div1 { grid-area: 1 / 1 / 2 / 2; }
-.div2 { grid-area: 2 / 1 / 3 / 2; }
 </style>
