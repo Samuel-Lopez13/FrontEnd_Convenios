@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <h1>FRONT_END DE SOFTWARE FACTORY</h1>
+  <router-view></router-view>
 </template>
 
 <style scoped>
