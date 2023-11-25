@@ -14,7 +14,7 @@ import Sidebar from "@/components/Inicio/Vistas/Sidebar.vue";
         <div class="div3">
             <Sidebar/>
         </div>
-        <div class="div4 p-5">
+        <div class="div4 p-3">
             <router-view></router-view>
         </div>
     </div>

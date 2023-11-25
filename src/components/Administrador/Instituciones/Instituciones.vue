@@ -15,7 +15,8 @@ const noCerrarAgregar = (event) => {
 
 <template>
     <div class="container">
-        <div class="titulo w-100 d-flex justify-content-center align-items-center h1" style="height: 100px; color: #1B365D">
+        <div class="titulo w-100 d-flex justify-content-center align-items-center h1"
+             style="height: 100px; color: #1B365D">
             INSTITUCIONES
         </div>
         <div class="tabla w-100 d-flex justify-content-center">
@@ -68,12 +69,6 @@ const noCerrarAgregar = (event) => {
 </template>
 
 <style scoped>
-.container {
-    width: 100%;
-    height: 100%;
-    background-color: #F2F2F2;
-}
-
 .ventanaAgregar {
     position: absolute;
     top: 0;
@@ -86,5 +81,4 @@ const noCerrarAgregar = (event) => {
     align-items: center;
     z-index: 1000; /* Z-index aumentado */
 }
-
 </style>
