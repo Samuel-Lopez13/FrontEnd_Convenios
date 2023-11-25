@@ -1,9 +1,16 @@
 <script setup>
 import TuplasInstituciones from "@/components/Administrador/Instituciones/TuplasInstituciones.vue";
 import AgregarInstitucion from "@/components/Administrador/Instituciones/AgregarInstitucion.vue";
-import {ref} from "vue";
+import {DatosInstituciones} from "@/api/provides/institucion.services";
+import {onMounted, ref} from "vue";
 
 const agregar = ref(false)
+const pagina = ref(1)
+const paginas = ref([])
+
+onMounted(() => {
+    paginacion();
+})
 
 const cambiarAgregar = () => {
     agregar.value = !agregar.value
@@ -11,6 +18,19 @@ const cambiarAgregar = () => {
 const noCerrarAgregar = (event) => {
     event.stopPropagation()
 }
+
+const paginacion = async () => {
+    var tamano = await DatosInstituciones.getPaginas()
+
+    for (let i = 1; i <= tamano.paginas; i++) {
+        paginas.value.push(i)
+    }
+}
+
+const paginaNueva = (paginas) => {
+    pagina.value = paginas
+}
+
 </script>
 
 <template>
@@ -42,24 +62,17 @@ const noCerrarAgregar = (event) => {
                     </tr>
                     </thead>
                     <tbody>
-                    <TuplasInstituciones/>
-                    <TuplasInstituciones/>
-                    <TuplasInstituciones/>
-                    <TuplasInstituciones/>
-                    <TuplasInstituciones/>
-                    <TuplasInstituciones/>
-                    <TuplasInstituciones/>
-                    <TuplasInstituciones/>
-                    <TuplasInstituciones/>
-                    <TuplasInstituciones/>
+                    <TuplasInstituciones
+                        :pagina = pagina
+                    />
                     </tbody>
                 </table>
                 <nav aria-label="Page navigation example">
                     <ul class="pagination d-flex justify-content-end">
                         <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item" v-for="(paginas, index) in paginas">
+                            <a class="page-link" href="#" @click="paginaNueva(paginas)">{{ paginas }}</a>
+                        </li>
                         <li class="page-item"><a class="page-link" href="#">Next</a></li>
                     </ul>
                 </nav>
