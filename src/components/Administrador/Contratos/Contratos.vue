@@ -1,5 +1,5 @@
 <script setup>
-import {DatosInstituciones} from "@/api/provides/institucion.services";
+import {DatosContratos} from "@/api/provides/institucion.services";
 import {onMounted, ref} from "vue";
 import TuplasContratos from "@/components/Administrador/Contratos/TuplasContratos.vue";
 import AgregarContrato from "@/components/Administrador/Contratos/AgregarContrato.vue";
@@ -20,7 +20,7 @@ const noCerrarAgregar = (event) => {
 }
 
 const paginacion = async () => {
-  var tamano = await DatosInstituciones.getPaginas()
+  var tamano = await DatosContratos.getPaginasContrato()
   for (let i = 1; i <= tamano.paginas; i++) {
     paginas.value.push(i)
   }
@@ -62,7 +62,9 @@ const paginaNueva = (paginas) => {
           </tr>
           </thead>
           <tbody>
-          <TuplasContratos/>
+          <TuplasContratos
+          :pagina = pagina
+          />
           </tbody>
         </table>
         <nav aria-label="Page navigation example">

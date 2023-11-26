@@ -18,7 +18,28 @@ export const DatosInstituciones = {
     getPaginas: async () => {
         try {
             const response = await _httpToken.get('/Institucion/Paginas');
+            return response.data;
+        } catch (error) {
+            NotificacionError.ErrorWMensaje('Ops!', 'Ocurrio algun error');
+        }
+    },
 
+}
+
+export const DatosContratos = {
+
+    getContratos: async (pagina) => {
+        try {
+            const response = await _httpToken.get('/Institucion/Instituciones/' + pagina);
+            return response.data;
+        } catch (error) {
+            NotificacionError.ErrorWMensaje('Ops!', 'Ocurrio algun error');
+        }
+    },
+
+    getPaginasContrato: async () => {
+        try {
+            const response = await _httpToken.get('/Institucion/Paginas');
             return response.data;
         } catch (error) {
             NotificacionError.ErrorWMensaje('Ops!', 'Ocurrio algun error');
