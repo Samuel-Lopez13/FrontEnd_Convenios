@@ -59,7 +59,9 @@ const paginaNueva = (paginas) => {
           </tr>
           </thead>
           <tbody>
-          <TuplasUsuarios/>
+          <TuplasUsuarios
+              :pagina = pagina
+          />
           </tbody>
         </table>
         <nav aria-label="Page navigation example">
