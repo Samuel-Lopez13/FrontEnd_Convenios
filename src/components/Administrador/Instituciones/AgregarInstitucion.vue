@@ -9,6 +9,8 @@ import {onMounted, ref} from "vue";
 
 const Nombre = ref("");
 
+const emit = defineEmits('cerrar-ventana')
+
 /****************************************             METODOS             **********************************************/
 
 const agregarInstitucion = async () => {
@@ -17,9 +19,15 @@ const agregarInstitucion = async () => {
     //Cuando cambie se actualizaran las instituciones
     store.state.CrearInstitucion = true
 
+    cerrarVentana()
+
     //Verifica que el numero de paginas cambie
     var tamano = await DatosInstituciones.getPaginas()
     store.state.Paginacion = tamano.paginas
+}
+
+const cerrarVentana = () => {
+    emit('cerrar-ventana');
 }
 
 </script>

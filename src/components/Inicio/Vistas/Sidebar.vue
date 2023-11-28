@@ -2,8 +2,8 @@
 import {ref} from "vue";
 import router from "@/router";
 
-const vistaAdmin = ref(false);
-const vistaUser = ref(true)
+const vistaAdmin = ref(true);
+const vistaUser = ref(false)
 const currentRoute = ref(router.currentRoute.value.name);
 
 const irContratos = () => {

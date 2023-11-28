@@ -91,7 +91,7 @@ const busqueda = async () => {
                     <button class="btn btn-primary" @click="cambiarAgregar">Agregar Institución</button>
                 </div>
                 <div class="ventanaAgregar" v-if="agregar" @click="cambiarAgregar">
-                    <AgregarInstitucion :visible.sync="agregar" @click="noCerrarAgregar"/>
+                    <AgregarInstitucion :visible.sync="agregar" @click="noCerrarAgregar" @cerrar-ventana="cambiarAgregar"/>
                 </div>
                 <table class="table">
                     <thead class="table-primary">
