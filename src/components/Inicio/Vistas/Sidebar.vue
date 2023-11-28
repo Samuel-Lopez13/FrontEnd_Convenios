@@ -2,7 +2,8 @@
 import {ref} from "vue";
 import router from "@/router";
 
-const vistaAdmin = ref(true);
+const vistaAdmin = ref(false);
+const vistaUser = ref(true)
 const currentRoute = ref(router.currentRoute.value.name);
 
 const irContratos = () => {
@@ -19,17 +20,23 @@ const irInstituciones = () => {
     router.push('/Instituciones');
     currentRoute.value = 'InstitucionesAdmin';
 };
+
+const irContratoUser = () =>{
+  router.push('/Contrato')
+  currentRoute.value = 'Contrato';
+}
 </script>
 
 <template>
     <nav class="w-100 h-100 d-flex flex-column justify-content-between"
          style="background-color: white; box-shadow: 8px 0 10px rgba(0, 0, 0, 0.1)">
         <!-- USUARIO -->
-        <div class="user d-flex flex-column align-items-center" v-if="!vistaAdmin">
+        <div class="user d-flex flex-column align-items-center" v-if="vistaUser">
             <div class="h4 d-flex justify-content-center align-items-center"
                  style="width: 100%; height: 50px;font-weight: bold">CONTRATOS
             </div>
-            <div class="d-flex justify-content-center align-items-center contrato">
+            <div class="d-flex justify-content-center align-items-center contrato" @click="irContratoUser"
+                 :class="{ 'activo': currentRoute === 'Contrato' }">
                 <div class="w-50">
                     Contrato 01
                 </div>
