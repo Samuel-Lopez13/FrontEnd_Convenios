@@ -1,9 +1,15 @@
 <script setup>
+/****************************************             IMPORT             ***********************************************/
+
 import {DatosInstituciones} from "@/api/provides/institucion.services";
 import store from '@/store';
 import {onMounted, ref} from "vue";
 
+/**************************************             VARIABLES             **********************************************/
+
 const Nombre = ref("");
+
+/****************************************             METODOS             **********************************************/
 
 const agregarInstitucion = async () => {
     //Agrega una nueva institucion
