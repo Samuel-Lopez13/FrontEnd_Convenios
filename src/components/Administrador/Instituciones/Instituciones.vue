@@ -1,33 +1,70 @@
 <script setup>
+/****************************************             IMPORT             ***********************************************/
+
 import TuplasInstituciones from "@/components/Administrador/Instituciones/TuplasInstituciones.vue";
 import AgregarInstitucion from "@/components/Administrador/Instituciones/AgregarInstitucion.vue";
 import {DatosInstituciones} from "@/api/provides/institucion.services";
-import {onMounted, ref} from "vue";
+import store from '@/store';
+import {onMounted, ref, watch} from "vue";
+
+/**************************************             VARIABLES             **********************************************/
 
 const agregar = ref(false)
 const pagina = ref(1)
-const paginas = ref([])
+
+/*************************************             ON MOUNTED             **********************************************/
 
 onMounted(() => {
     paginacion();
 })
 
+/****************************************             WATCH              ***********************************************/
+
+//Escogemos una nueva pagina y actualizamos los datos
+watch(() => pagina, () => {
+    paginacion();
+})
+
+//Siempre se actualiza a la ultima pagina creada
+watch(() => store.state.Paginacion, () => {
+    paginaNueva(store.state.Paginacion)
+})
+
+/****************************************             METODOS             **********************************************/
+
+//Visualizara o no la ventana de agregar nueva institucion
 const cambiarAgregar = () => {
     agregar.value = !agregar.value
 }
+
+//Evita que se cierre la ventana de agregar nueva institucion
 const noCerrarAgregar = (event) => {
     event.stopPropagation()
 }
 
+//Obtiene el numero de paginas la primera vez
 const paginacion = async () => {
     var tamano = await DatosInstituciones.getPaginas()
-    for (let i = 1; i <= tamano.paginas; i++) {
-        paginas.value.push(i)
+    store.state.Paginacion = tamano.paginas
+}
+
+//Cambia la pagina actual
+const paginaNueva = (paginas) => {
+    pagina.value = paginas
+}
+
+//Reduce una pagina son para los botones Next y Previous
+const menosPagina = () => {
+    if (pagina.value > 1) {
+        pagina.value--
     }
 }
 
-const paginaNueva = (paginas) => {
-    pagina.value = paginas
+//aumenta una pagina son para los botones Next y Previous
+const masPagina = () => {
+    if (pagina.value < store.state.Paginacion) {
+        pagina.value++
+    }
 }
 
 </script>
@@ -68,11 +105,11 @@ const paginaNueva = (paginas) => {
                 </table>
                 <nav aria-label="Page navigation example">
                     <ul class="pagination d-flex justify-content-end">
-                        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                        <li class="page-item" v-for="(paginas, index) in paginas">
+                        <li class="page-item"><a class="page-link" href="#" @click="menosPagina()">Previous</a></li>
+                        <li class="page-item" v-for="(paginas, index) in store.state.Paginacion">
                             <a class="page-link" href="#" @click="paginaNueva(paginas)">{{ paginas }}</a>
                         </li>
-                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                        <li class="page-item"><a class="page-link" href="#" @click="masPagina()">Next</a></li>
                     </ul>
                 </nav>
             </div>

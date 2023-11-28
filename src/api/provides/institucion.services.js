@@ -24,7 +24,40 @@ export const DatosInstituciones = {
         }
     },
 
+    postInstitucion: async (institucion) => {
+        try {
+            const institucio = {
+                nombre: institucion
+            };
+
+            const inst = JSON.stringify(institucio);
+
+            const response = await _httpToken.post('/Institucion/Institucion', inst);
+            NotificacionExito.ExitosoWMensaje('Institucion creada con exito')
+        } catch (error) {
+            NotificacionError.ErrorWMensaje('Ops!', 'Ocurrio algun error');
+        }
+    },
+
+    deleteInstitucion: async (id) => {
+        try {
+            const response = await _httpToken.delete('/Institucion/Institucion/' + id);
+            NotificacionExito.ExitosoWMensaje('Institucion eliminada con exito')
+        } catch (error) {
+            NotificacionError.ErrorWMensaje('Ops!', 'Ocurrio algun error');
+        }
+    }
+
 }
+
+
+
+
+
+
+
+
+
 
 export const DatosContratos = {
 

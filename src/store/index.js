@@ -2,7 +2,8 @@ import { createStore } from 'vuex'
 
 export default new createStore({
     state: {
-        // Define tus variables de estado aquí
+        CrearInstitucion: false,
+        Paginacion: 1,
     },
     mutations: {
         // Define tus mutaciones aquí

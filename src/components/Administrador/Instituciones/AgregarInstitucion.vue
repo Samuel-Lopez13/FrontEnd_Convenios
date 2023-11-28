@@ -1,5 +1,21 @@
 <script setup>
-import Instituciones from "@/components/Administrador/Instituciones/Instituciones.vue";
+import {DatosInstituciones} from "@/api/provides/institucion.services";
+import store from '@/store';
+import {onMounted, ref} from "vue";
+
+const Nombre = ref("");
+
+const agregarInstitucion = async () => {
+    //Agrega una nueva institucion
+    await DatosInstituciones.postInstitucion(Nombre.value);
+    //Cuando cambie se actualizaran las instituciones
+    store.state.CrearInstitucion = true
+
+    //Verifica que el numero de paginas cambie
+    var tamano = await DatosInstituciones.getPaginas()
+    store.state.Paginacion = tamano.paginas
+}
+
 </script>
 
 <template>
@@ -10,9 +26,10 @@ import Instituciones from "@/components/Administrador/Instituciones/Institucione
         <form class="formulario p-4 d-flex flex-column align-items-center">
             <div class="Nombre pb-3 d-flex flex-column">
                 <label class="form-label">Nombre</label>
-                <input type="text" class="form form-control form-label">
+                <input type="text" class="form form-control form-label" v-model="Nombre">
             </div>
-            <div class="btn btn-primary form-label d-flex justify-content-center align-items-center" @click="">Agregar
+            <div class="btn btn-primary form-label d-flex justify-content-center align-items-center"
+                 @click="agregarInstitucion">Agregar
             </div>
         </form>
     </div>
@@ -27,7 +44,7 @@ import Instituciones from "@/components/Administrador/Instituciones/Institucione
     border-radius: 5px;
 }
 
-.form{
+.form {
     width: 300px;
 }
 
