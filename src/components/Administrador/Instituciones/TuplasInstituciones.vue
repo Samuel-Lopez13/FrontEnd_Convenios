@@ -1,16 +1,26 @@
 <script setup>
+/****************************************             IMPORT             ***********************************************/
+
 import {DatosInstituciones} from "@/api/provides/institucion.services";
 import {ref, onMounted, watch} from "vue";
 import store from "@/store";
 
+/****************************************             PROPS             ************************************************/
+
 const props = defineProps(['pagina']);
+
+/**************************************             VARIABLES             **********************************************/
 
 const instituciones = ref([]);
 const carga = ref(true);
 
+/*************************************             ON MOUNTED             **********************************************/
+
 onMounted(() => {
     obtenerInstituciones();
 })
+
+/****************************************             WATCH              ***********************************************/
 
 watch(() => props.pagina, () => {
     obtenerInstituciones();
@@ -20,6 +30,8 @@ watch(() => store.state.CrearInstitucion, () => {
     obtenerInstituciones();
     store.state.CrearInstitucion = false;
 })
+
+/****************************************             METODOS             **********************************************/
 
 const obtenerInstituciones = async () => {
     instituciones.value = await DatosInstituciones.getInstituciones(props.pagina);
