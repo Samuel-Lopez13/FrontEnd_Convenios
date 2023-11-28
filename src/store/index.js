@@ -5,6 +5,10 @@ export default new createStore({
         CrearInstitucion: false,
         Paginacion: 1,
         BusquedaInstituciones: '',
+
+        //USUARIOS
+        PaginacionUsers:1,
+        BusquedaUsuarios:''
     },
     mutations: {
         // Define tus mutaciones aquí
