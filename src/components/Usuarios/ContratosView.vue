@@ -11,7 +11,11 @@ const btnCambios = ref(true)
 
 <template>
   <div class="contenedor w-100 h-100 d-flex bg-light">
-    <div class="vistaDocumento">
+    <div class="vistaDocumento d-flex justify-content-center align-items-center">
+      <iframe src="https://docs.google.com/gview?url=https://github.com/Samuel-Lopez13/FrontEnd_Convenios/raw/main/Prueba.docx&embedded=true"
+              style="width:800px; height:800px;">
+
+      </iframe>
     </div>
     <div class="botones  p-3">
       <div class="fase h4 d-flex justify-content-center align-items-center">

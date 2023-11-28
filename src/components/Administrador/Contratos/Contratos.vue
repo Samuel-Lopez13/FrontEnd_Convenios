@@ -3,6 +3,7 @@ import {DatosContratos} from "@/api/provides/institucion.services";
 import {onMounted, ref} from "vue";
 import TuplasContratos from "@/components/Administrador/Contratos/TuplasContratos.vue";
 import AgregarContrato from "@/components/Administrador/Contratos/AgregarContrato.vue";
+import {DatosPersonales} from "@/api/provides/usuario.services";
 
 const agregar = ref(false)
 const pagina = ref(1)
@@ -29,7 +30,6 @@ const paginacion = async () => {
 const paginaNueva = (paginas) => {
   pagina.value = paginas
 }
-
 </script>
 
 <template>

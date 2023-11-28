@@ -1,7 +1,6 @@
 <script setup>
 import {DatosPersonales} from "@/api/provides/usuario.services";
-import {ref} from "vue";
-
+import {onMounted, ref} from "vue";
 const Correo = ref('');
 const Password = ref('');
 

@@ -14,7 +14,7 @@ const enviarFormulario = () =>{
 <template>
   <div class="agregar">
     <div class="titulo d-flex justify-content-center align-items-center">
-      <h3 style="font-size: 22px">Completa los datos tu de Institución</h3>
+      <h3 style="font-size: 22px">Completa los datos de tu Institución</h3>
     </div>
     <form class="formulario p-4 d-flex flex-column align-items-center">
       <div class="Nombre pb-3 d-flex flex-column">
