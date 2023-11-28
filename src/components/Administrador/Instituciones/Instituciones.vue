@@ -9,6 +9,7 @@ import {onMounted, ref, watch} from "vue";
 
 /**************************************             VARIABLES             **********************************************/
 
+const buscar = ref("")
 const agregar = ref(false)
 const pagina = ref(1)
 
@@ -67,6 +68,14 @@ const masPagina = () => {
     }
 }
 
+//solo actualiza la variable de busqueda y el numero de paginas
+const busqueda = async () => {
+    store.state.BusquedaInstituciones = buscar.value
+    //Buscara el numero de pagina
+    var tamano = await DatosInstituciones.getPaginasBusqueda(buscar.value)
+    store.state.Paginacion = tamano.paginas
+}
+
 </script>
 
 <template>
@@ -78,7 +87,7 @@ const masPagina = () => {
         <div class="tabla w-100 d-flex justify-content-center">
             <div style="width: 1400px;">
                 <div class="buscar d-flex gap-2 mb-2">
-                    <input type="text" class="form-control" placeholder="Buscar por nombre..." style="width: 400px;">
+                    <input type="text" class="form-control" placeholder="Buscar por nombre..." style="width: 400px;" v-model="buscar" @input="busqueda">
                     <button class="btn btn-primary" @click="cambiarAgregar">Agregar Institución</button>
                 </div>
                 <div class="ventanaAgregar" v-if="agregar" @click="cambiarAgregar">

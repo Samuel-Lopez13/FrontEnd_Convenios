@@ -46,6 +46,28 @@ export const DatosInstituciones = {
         } catch (error) {
             NotificacionError.ErrorWMensaje('Ops!', 'Ocurrio algun error');
         }
+    },
+
+    /***********/
+
+    getBusquedaInstituciones: async (pagina, busqueda) => {
+        try {
+            const response = await _httpToken.get('/Institucion/Buscar?pagina=' + pagina + '&nombre=' + busqueda);
+            return response.data;
+        } catch (error) {
+            //NotificacionError.ErrorWMensaje('Ops!', 'Ocurrio algun error');
+            console.log(error);
+        }
+    },
+
+    getPaginasBusqueda: async (busqueda) => {
+        try {
+            const response = await _httpToken.get('http://localhost:5193/Institucion/Paginas/' + busqueda);
+            return response.data;
+        } catch (error) {
+            //NotificacionError.ErrorWMensaje('Ops!', 'Ocurrio algun error');
+            console.log(error);
+        }
     }
 
 }

@@ -4,6 +4,7 @@ export default new createStore({
     state: {
         CrearInstitucion: false,
         Paginacion: 1,
+        BusquedaInstituciones: '',
     },
     mutations: {
         // Define tus mutaciones aquí

@@ -22,13 +22,30 @@ onMounted(() => {
 
 /****************************************             WATCH              ***********************************************/
 
+//Si se cambia de pagina se actualiza la lista y se actualizara dependiendo si esta en busqueda o no
 watch(() => props.pagina, () => {
-    obtenerInstituciones();
+    if(store.state.BusquedaInstituciones === ""){
+        obtenerInstituciones();
+    } else {
+        busqueda();
+    }
+
 })
 
+//Si se crea una nueva institucion se actualiza la lista
 watch(() => store.state.CrearInstitucion, () => {
     obtenerInstituciones();
     store.state.CrearInstitucion = false;
+})
+
+
+//Si busqueda instituciones es vacio me devuelve todos si no pues solo la busqueda
+watch(() => store.state.BusquedaInstituciones, () => {
+    if(store.state.BusquedaInstituciones === ""){
+        obtenerInstituciones();
+    } else {
+        busqueda();
+    }
 })
 
 /****************************************             METODOS             **********************************************/
@@ -50,14 +67,39 @@ const obtenerInstituciones = async () => {
     carga.value = false;
 }
 
+
+//Devuelve las instituciones que coincidan con la busqueda y el numero de pagina
+const busqueda = async () => {
+    instituciones.value = await DatosInstituciones.getBusquedaInstituciones(props.pagina, store.state.BusquedaInstituciones)
+
+    instituciones.value.map((item) => {
+        return {
+            institucion_id: item.institucion_Id,
+            nombre: item.nombre,
+            estado: item.estado,
+            pais: item.pais,
+            identificacion: item.identificacion,
+            direccion: item.direccion
+        }
+    })
+}
+
 const eliminarInstitucion = async (index, id) => {
     //Elimina la institucion visualmente
     instituciones.value.splice(index, 1);
     //Elimina la institucion de la base de datos
     await DatosInstituciones.deleteInstitucion(id);
 
-    //Verifica que el numero de paginas cambie
-    var tamano = await DatosInstituciones.getPaginas()
+    var tamano = 0
+
+    //Si esta en busqueda o no dependiendo
+    if(store.state.BusquedaInstituciones === ""){
+        //Verifica que el numero de paginas cambie
+        tamano = await DatosInstituciones.getPaginas()
+    } else {
+        tamano = await DatosInstituciones.getPaginasBusqueda(store.state.BusquedaInstituciones)
+    }
+
     store.state.Paginacion = tamano.paginas
 }
 </script>
