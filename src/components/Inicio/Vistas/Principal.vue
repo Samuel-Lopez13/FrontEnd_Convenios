@@ -9,7 +9,8 @@ import Sidebar from "@/components/Inicio/Vistas/Sidebar.vue";
             <div class="User h4" style="color: #fefefe;margin-right: 20px">
               Administrador/Usuario <i class="bi bi-three-dots-vertical"></i> </div>
         </div>
-        <div class="div2" style="background-color: #1B365D">
+        <div class="div2 d-flex justify-content-center align-items-center" style="background-color: #1B365D">
+          <p class="fs-5" style="color: #fefefe">Todos los derechos reservados © Firma de convenios 2023 | <span class="acerca">Acerca de esta pagina</span></p>
         </div>
         <div class="div3">
             <Sidebar/>
@@ -21,6 +22,11 @@ import Sidebar from "@/components/Inicio/Vistas/Sidebar.vue";
 </template>
 
 <style scoped>
+.acerca:hover{
+  color: #d7ac00;
+  transition: .3s;
+  cursor: pointer;
+}
 .bi-three-dots-vertical:hover{
   color: #d7ac00;
   cursor: pointer;
