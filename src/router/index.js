@@ -28,6 +28,16 @@ const router = createRouter({
                     path: '/Instituciones',
                     name: 'InstitucionesAdmin',
                     component: () => import('../components/Administrador/Instituciones/Instituciones.vue')
+                },
+                {
+                    path: '/Terminos',
+                    name: 'Terminos',
+                    component: () => import('../components/Usuarios/Terminos.vue')
+                },
+                {
+                    path:'/Contrato',
+                    name:'Contrato',
+                    component:()=>import('../components/Usuarios/ContratosView.vue')
                 }
             ]
         }

@@ -8,10 +8,6 @@ const Password = ref('');
 const obtenerDatosUsuario = async () => {
     await DatosPersonales.loginUser(Correo.value, Password.value);
 }
-
-const IniciarSesion = () =>{
-  fetch()
-}
 </script>
 
 <template>

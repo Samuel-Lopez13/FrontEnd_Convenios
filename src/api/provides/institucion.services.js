@@ -72,15 +72,6 @@ export const DatosInstituciones = {
 
 }
 
-
-
-
-
-
-
-
-
-
 export const DatosContratos = {
 
     getContratos: async (pagina) => {

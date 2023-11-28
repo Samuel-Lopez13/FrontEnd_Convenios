@@ -140,7 +140,7 @@ const eliminarInstitucion = async (index, id) => {
     border-radius: 50%;
     border: 8px solid;
     border-color: #E4E4ED;
-    border-right-color: #766DF4;
+    border-right-color: #1B365D;
     animation: s2 1s infinite linear;
 }
 
