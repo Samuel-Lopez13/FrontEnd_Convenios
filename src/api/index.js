@@ -19,4 +19,12 @@ const _httpToken = axios.create({
     }
 })
 
-export { _httpGet, _http, _httpToken }
+const _httpTokenFile = axios.create({
+    baseURL: _baseUrl,
+    headers: {
+        'Content-Type': 'multipart/form-data',
+        'Authorization': `Bearer ${localStorage.getItem("Credenciales")}`
+    }
+})
+
+export { _httpGet, _http, _httpToken, _httpTokenFile }

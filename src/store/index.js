@@ -12,6 +12,11 @@ export default new createStore({
         PaginacionU: 1,
         BusquedaUsuarios: '',
 
+        //Contratos
+        CrearContrato: false,
+        PaginacionC: 1,
+        BusquedaContratos: '',
+
         //Sidebar
         vistaAdmin: false,
         vistaUser: false,
