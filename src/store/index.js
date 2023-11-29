@@ -8,6 +8,7 @@ export default new createStore({
         BusquedaInstituciones: '',
 
         //Usuarios
+        CrearUsuario: false,
         PaginacionU: 1,
         BusquedaUsuarios: '',
 

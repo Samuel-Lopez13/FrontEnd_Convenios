@@ -34,9 +34,9 @@ watch(() => props.pagina, () => {
 })
 
 //Si se crea una nueva institucion se actualiza la lista
-watch(() => store.state.CrearInstitucion, () => {
+watch(() => store.state.CrearUsuario, () => {
     obtenerUsuarios();
-    store.state.CrearInstitucion = false;
+    store.state.CrearUsuario = false;
 })
 
 
