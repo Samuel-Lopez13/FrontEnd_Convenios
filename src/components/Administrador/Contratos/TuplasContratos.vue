@@ -1,40 +1,5 @@
 <script setup>
-import {DatosContratos} from "@/api/provides/institucion.services";
-import {ref, onMounted, watch} from "vue";
 
-const props = defineProps(['pagina']);
-
-const contratos = ref([]);
-//const carga = ref(true);
-
-onMounted(() => {
-  obtenerContratos();
-  //carga.value = false;
-})
-
-watch(() => props.pagina, () => {
-  obtenerContratos();
-})
-
-const obtenerContratos = async () => {
-  console.log(props.pagina);
-  contratos.value = await DatosContratos.getContratos(props.pagina);
-  contratos.value.map((item) => {
-    return {
-      id: item.contrat_Id,
-      nombre: item.nombre,
-      objeto: item.Objeto,
-      inicio: item.FechaInicio,
-      termino: item.FechaTermino,
-      archivo: item.Archivo,
-      institucion: item.Institucion
-    }
-  })
-}
-
-const eliminarContrato = async (id) => {
-  contratos.value.splice(id, 1);
-}
 </script>
 
 <template>

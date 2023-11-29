@@ -1,33 +1,16 @@
 <script setup>
-import {DatosContratos} from "@/api/provides/institucion.services";
 import {onMounted, ref} from "vue";
 import TuplasContratos from "@/components/Administrador/Contratos/TuplasContratos.vue";
 import AgregarContrato from "@/components/Administrador/Contratos/AgregarContrato.vue";
 
 const agregar = ref(false)
-const pagina = ref(1)
-const paginas = ref([])
 
-onMounted(() => {
-  paginacion();
-})
 
 const cambiarAgregar = () => {
   agregar.value = !agregar.value
 }
 const noCerrarAgregar = (event) => {
   event.stopPropagation()
-}
-
-const paginacion = async () => {
-  var tamano = await DatosContratos.getPaginasContrato()
-  for (let i = 1; i <= tamano.paginas; i++) {
-    paginas.value.push(i)
-  }
-}
-
-const paginaNueva = (paginas) => {
-  pagina.value = paginas
 }
 
 </script>

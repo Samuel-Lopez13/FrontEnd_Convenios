@@ -26,14 +26,12 @@ export const DatosInstituciones = {
 
     postInstitucion: async (institucion) => {
         try {
-            const institucio = {
+            const institucionJSON = {
                 nombre: institucion
             };
 
-            const inst = JSON.stringify(institucio);
-
-            const response = await _httpToken.post('/Institucion/Institucion', inst);
-            NotificacionExito.ExitosoWMensaje('Institucion creada con exito')
+            const response = await _httpToken.post('/Institucion/Institucion', JSON.stringify(institucionJSON));
+            NotificacionExito.ExitosoWMensaje('Institucion registrada con exito')
         } catch (error) {
             NotificacionError.ErrorWMensaje('Ops!', 'Ocurrio algun error');
         }
@@ -47,8 +45,6 @@ export const DatosInstituciones = {
             NotificacionError.ErrorWMensaje('Ops!', 'Ocurrio algun error');
         }
     },
-
-    /***********/
 
     getBusquedaInstituciones: async (pagina, busqueda) => {
         try {
@@ -69,49 +65,5 @@ export const DatosInstituciones = {
             console.log(error);
         }
     }
-
-}
-
-export const DatosContratos = {
-
-    getContratos: async (pagina) => {
-        try {
-            const response = await _httpToken.get('' + pagina);
-            return response.data;
-        } catch (error) {
-            NotificacionError.ErrorWMensaje('Ops!', 'Ocurrio algun error');
-        }
-    },
-
-    getPaginasContrato: async () => {
-        try {
-            const response = await _httpToken.get('');
-            return response.data;
-        } catch (error) {
-            NotificacionError.ErrorWMensaje('Ops!', 'Ocurrio algun error');
-        }
-    },
-
-}
-
-export const DatosUsuarios = {
-
-    getUsuarios: async (pagina) => {
-        try {
-            const response = await _httpToken.get('' + pagina);
-            return response.data;
-        } catch (error) {
-            NotificacionError.ErrorWMensaje('Ops!', 'Ocurrio algun error');
-        }
-    },
-
-    getPaginasUsuarios: async () => {
-        try {
-            const response = await _httpToken.get('');
-            return response.data;
-        } catch (error) {
-            NotificacionError.ErrorWMensaje('Ops!', 'Ocurrio algun error');
-        }
-    },
 
 }

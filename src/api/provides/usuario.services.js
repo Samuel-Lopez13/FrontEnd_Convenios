@@ -7,15 +7,15 @@ export const DatosPersonales = {
 
     loginUser: async (email, contrasena) => {
         try {
-            const response = await _http.post('/api/Usuario/Login', {
+            const response = await _http.post('/Usuario/Login', {
                 email: email,
                 contrasena: contrasena,
             });
 
             if (response.data.token != null) {
+                localStorage.setItem(CREDENCIALES, response.data.token)
                 NotificacionExito.ExitosoWMensaje('Bienvenido')
                 setTimeout(function () {
-                    localStorage.setItem(CREDENCIALES, response.data.token)
                     router.push("/Inicio");
                 }, 1500);
             }
@@ -27,5 +27,68 @@ export const DatosPersonales = {
             }
         }
     },
+
+    /* Nuevo y en desarrollo */
+
+    getUsuarios: async (pagina) => {
+        try {
+            const response = await _httpToken.get('/Usuario/Usuarios/' + pagina);
+
+            return response.data;
+        } catch (error) {
+            NotificacionError.ErrorWMensaje('Ops!', 'Ocurrio algun error');
+        }
+    },
+
+    getPaginas: async () => {
+        try {
+            const response = await _httpToken.get('/Usuario/Paginas');
+            return response.data;
+        } catch (error) {
+            NotificacionError.ErrorWMensaje('Ops!', 'Ocurrio algun error');
+        }
+    },
+
+    postUsuario: async (Usuario) => {
+        try {
+            const UsuarioJSON = {
+                nombre: Usuario
+            };
+
+            const response = await _httpToken.post('/Usuario/Usuarios', JSON.stringify(UsuarioJSON));
+            NotificacionExito.ExitosoWMensaje('Usuario registrado con exito')
+        } catch (error) {
+            NotificacionError.ErrorWMensaje('Ops!', 'Ocurrio algun error');
+        }
+    },
+
+    deleteUsuario: async (id) => {
+        try {
+            const response = await _httpToken.delete('/Usuario/Usuario/' + id);
+            NotificacionExito.ExitosoWMensaje('usuario eliminado con exito')
+        } catch (error) {
+            NotificacionError.ErrorWMensaje('Ops!', 'Ocurrio algun error');
+        }
+    },
+
+    getBusquedaUsuario: async (pagina, busqueda) => {
+        try {
+            const response = await _httpToken.get('/Usuario/Buscar?pagina=' + pagina + '&nombre=' + busqueda);
+            return response.data;
+        } catch (error) {
+            //NotificacionError.ErrorWMensaje('Ops!', 'Ocurrio algun error');
+            console.log(error);
+        }
+    },
+
+    getPaginasBusqueda: async (busqueda) => {
+        try {
+            const response = await _httpToken.get('/Usuario/Paginas/' + busqueda);
+            return response.data;
+        } catch (error) {
+            //NotificacionError.ErrorWMensaje('Ops!', 'Ocurrio algun error');
+            console.log(error);
+        }
+    }
 
 }

@@ -1,16 +1,28 @@
 <script setup>
+/****************************************             IMPORT             ***********************************************/
+
 import {DatosUsuarios} from "@/api/provides/institucion.services";
 import {onMounted, ref} from "vue";
 import TuplasUsuarios from "@/components/Administrador/Usuarios/TuplasUsuarios.vue";
 import AgregarUsuario from "@/components/Administrador/Usuarios/AgregarUsuario.vue";
 
+/**************************************             VARIABLES             **********************************************/
+
+const buscar = ref("")
 const agregar = ref(false)
 const pagina = ref(1)
-const paginas = ref([])
+
+/*************************************             ON MOUNTED             **********************************************/
 
 onMounted(() => {
   paginacion();
 })
+
+/****************************************             WATCH              ***********************************************/
+
+
+
+/****************************************             METODOS             **********************************************/
 
 const cambiarAgregar = () => {
   agregar.value = !agregar.value

@@ -31,8 +31,6 @@ watch(() => store.state.Paginacion, () => {
     paginaNueva(store.state.Paginacion)
 })
 
-/****************************************             METODOS             **********************************************/
-
 //Visualizara o no la ventana de agregar nueva institucion
 const cambiarAgregar = () => {
     agregar.value = !agregar.value

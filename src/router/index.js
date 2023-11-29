@@ -11,7 +11,7 @@ const router = createRouter({
         {
             path: '/Inicio',
             name: 'Principal',
-            redirect: '/Contratos',
+            redirect: '/Instituciones',
             component: () => import('../components/Inicio/Vistas/Principal.vue'),
             children: [
                 {
