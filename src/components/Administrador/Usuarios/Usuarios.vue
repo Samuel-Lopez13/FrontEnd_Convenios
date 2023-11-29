@@ -1,7 +1,6 @@
 <script setup>
 /****************************************             IMPORT             ***********************************************/
 
-import {DatosUsuarios} from "@/api/provides/institucion.services";
 import {onMounted, ref} from "vue";
 import TuplasUsuarios from "@/components/Administrador/Usuarios/TuplasUsuarios.vue";
 import AgregarUsuario from "@/components/Administrador/Usuarios/AgregarUsuario.vue";
@@ -14,9 +13,6 @@ const pagina = ref(1)
 
 /*************************************             ON MOUNTED             **********************************************/
 
-onMounted(() => {
-  paginacion();
-})
 
 /****************************************             WATCH              ***********************************************/
 
@@ -29,17 +25,6 @@ const cambiarAgregar = () => {
 }
 const noCerrarAgregar = (event) => {
   event.stopPropagation()
-}
-
-const paginacion = async () => {
-  var tamano = await DatosUsuarios.getPaginasUsuarios()
-  for (let i = 1; i <= tamano.paginas; i++) {
-    paginas.value.push(i)
-  }
-}
-
-const paginaNueva = (paginas) => {
-  pagina.value = paginas
 }
 
 </script>

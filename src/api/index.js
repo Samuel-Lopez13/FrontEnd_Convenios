@@ -15,7 +15,7 @@ const _httpToken = axios.create({
     baseURL: _baseUrl,
     headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${localStorage.getItem(CREDENCIALES)}`
+        'Authorization': `Bearer ${localStorage.getItem("Credenciales")}`
     }
 })
 

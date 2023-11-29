@@ -1,11 +1,15 @@
 <script setup>
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
 import router from "@/router";
+import {DatosPersonales} from "@/api/provides/usuario.services";
 
 const vistaAdmin = ref(true);
 const vistaUser = ref(false)
 const currentRoute = ref(router.currentRoute.value.name);
 
+onMounted(() => {
+  verificarRol()
+})
 const irContratos = () => {
     router.push('/Contratos');
     currentRoute.value = 'ContratosAdmin';
@@ -24,6 +28,18 @@ const irInstituciones = () => {
 const irContratoUser = () =>{
   router.push('/Contrato')
   currentRoute.value = 'Contrato';
+}
+
+const verificarRol = async () =>{
+  var rol = await DatosPersonales.userRol();
+  console.log(rol)
+  if (rol === "Administrador"){
+    vistaAdmin.value = true;
+    vistaUser.value = false;
+  }else{
+    vistaUser.value = true;
+    vistaAdmin.value = false;
+  }
 }
 </script>
 

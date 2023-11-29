@@ -6,9 +6,7 @@ export default new createStore({
         Paginacion: 1,
         BusquedaInstituciones: '',
 
-        //USUARIOS
-        PaginacionUsers:1,
-        BusquedaUsuarios:''
+        Token: '',
     },
     mutations: {
         // Define tus mutaciones aquí

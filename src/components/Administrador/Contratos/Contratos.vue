@@ -2,6 +2,7 @@
 import {onMounted, ref} from "vue";
 import TuplasContratos from "@/components/Administrador/Contratos/TuplasContratos.vue";
 import AgregarContrato from "@/components/Administrador/Contratos/AgregarContrato.vue";
+import {DatosPersonales} from "@/api/provides/usuario.services";
 
 const agregar = ref(false)
 
@@ -13,6 +14,16 @@ const noCerrarAgregar = (event) => {
   event.stopPropagation()
 }
 
+const paginacion = async () => {
+  var tamano = await DatosContratos.getPaginasContrato()
+  for (let i = 1; i <= tamano.paginas; i++) {
+    paginas.value.push(i)
+  }
+}
+
+const paginaNueva = (paginas) => {
+  pagina.value = paginas
+}
 </script>
 
 <template>

@@ -4,19 +4,21 @@ import router from "@/router";
 import {CREDENCIALES} from "@/utils/constantes/Constantes";
 
 export const DatosPersonales = {
-
     loginUser: async (email, contrasena) => {
         try {
             const response = await _http.post('/Usuario/Login', {
                 email: email,
                 contrasena: contrasena,
             });
-
             if (response.data.token != null) {
                 localStorage.setItem(CREDENCIALES, response.data.token)
                 NotificacionExito.ExitosoWMensaje('Bienvenido')
                 setTimeout(function () {
-                    router.push("/Inicio");
+                    if (response.data.rol === "Administrador"){
+                        router.push("/Inicio");
+                    }else{
+                        router.push("/Terminos")
+                    }
                 }, 1500);
             }
         } catch (error) {
@@ -89,6 +91,10 @@ export const DatosPersonales = {
             //NotificacionError.ErrorWMensaje('Ops!', 'Ocurrio algun error');
             console.log(error);
         }
-    }
+    },
 
+    userRol: async () =>{
+        const response2 = await _httpToken.get('/Usuario/Rol')
+        return response2.data.rol;
+    }
 }
