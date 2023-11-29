@@ -2,6 +2,7 @@ import {_httpGet, _http, _httpToken} from '@/api'
 import {NotificacionExito, NotificacionError} from "@/alertas/alerts";
 import router from "@/router";
 import {CREDENCIALES} from "@/utils/constantes/Constantes";
+import store from "@/store";
 
 export const DatosPersonales = {
     loginUser: async (email, contrasena) => {
@@ -15,8 +16,12 @@ export const DatosPersonales = {
                 NotificacionExito.ExitosoWMensaje('Bienvenido')
                 setTimeout(function () {
                     if (response.data.rol === "Administrador"){
-                        router.push("/Inicio");
+                        store.commit("setVistaAdmin", true);
+                        store.commit("setVistaUser", false);
+                        router.push("/Terminos");
                     }else{
+                        store.commit("setVistaUser", true);
+                        store.commit("setVistaAdmin", false);
                         router.push("/Terminos")
                     }
                 }, 1500);

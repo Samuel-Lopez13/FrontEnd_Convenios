@@ -2,13 +2,13 @@
 import {onMounted, ref} from "vue";
 import router from "@/router";
 import {DatosPersonales} from "@/api/provides/usuario.services";
+import store from "@/store";
 
-const vistaAdmin = ref(true);
-const vistaUser = ref(false)
+const vistaAdmin = ref(store.state.vistaAdmin);
+const vistaUser = ref(store.state.vistaUser);
 const currentRoute = ref(router.currentRoute.value.name);
 
 onMounted(() => {
-  verificarRol()
 })
 const irContratos = () => {
     router.push('/Contratos');
@@ -30,17 +30,22 @@ const irContratoUser = () =>{
   currentRoute.value = 'Contrato';
 }
 
-const verificarRol = async () =>{
-  var rol = await DatosPersonales.userRol();
-  console.log(rol)
-  if (rol === "Administrador"){
-    vistaAdmin.value = true;
-    vistaUser.value = false;
-  }else{
-    vistaUser.value = true;
-    vistaAdmin.value = false;
+/*const verificarRol = async () => {
+  try {
+    var rol = await DatosPersonales.userRol();
+    console.log(rol);
+
+    if (rol === "Administrador") {
+      vistaAdmin.value = true;
+      vistaUser.value = false;
+    } else {
+      vistaUser.value = true;
+      vistaAdmin.value = false;
+    }
+  } catch (error) {
+    console.error("Error al verificar el rol:", error);
   }
-}
+}*/
 </script>
 
 <template>
@@ -86,7 +91,7 @@ const verificarRol = async () =>{
                 <i class="bi bi-people"></i>
             </div>
         </div>
-        <div class="d-flex justify-content-center align-items-center salir">
+        <div class="d-flex justify-content-center align-items-center salir" @click="salir">
             <div class="w-50">
                 SALIR
             </div>

@@ -2,7 +2,7 @@
 import {ref} from "vue";
 import DatosInstitucion from "@/components/Usuarios/DatosInstitucion.vue";
 
-const completar = ref(true)
+const completar = ref(false)
 
 const cerrarCompletar = () =>{
   completar.value = false

@@ -52,7 +52,6 @@ watch(() => store.state.BusquedaInstituciones, () => {
 
 const obtenerInstituciones = async () => {
     instituciones.value = await DatosInstituciones.getInstituciones(props.pagina);
-
     instituciones.value.map((item) => {
         return {
             institucion_id: item.institucion_Id,
@@ -63,7 +62,6 @@ const obtenerInstituciones = async () => {
             direccion: item.direccion
         }
     })
-
     carga.value = false;
 }
 

@@ -1,5 +1,5 @@
 import { createStore } from 'vuex'
-
+import createPersistedState from "vuex-persistedstate";
 export default new createStore({
     state: {
         //Instituciones
@@ -10,10 +10,24 @@ export default new createStore({
         //Usuarios
         PaginacionU: 1,
         BusquedaUsuarios: '',
+
+        //Sidebar
+        vistaAdmin: false,
+        vistaUser: false,
     },
     mutations: {
-        // Define tus mutaciones aquí
+        setVistaAdmin(state, value) {
+            state.vistaAdmin = value;
+        },
+        setVistaUser(state, value) {
+            state.vistaUser = value;
+        },
     },
+    plugins: [
+        createPersistedState({
+            paths: ["vistaAdmin", "vistaUser"]
+        }),
+    ],
     actions: {
         // Define tus acciones aquí
     },
