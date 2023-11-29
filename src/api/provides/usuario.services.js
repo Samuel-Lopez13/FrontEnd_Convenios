@@ -51,10 +51,12 @@ export const DatosPersonales = {
         }
     },
 
-    postUsuario: async (Usuario) => {
+    postUsuario: async (Usuario, correo, id_institucion) => {
         try {
             const UsuarioJSON = {
-                nombre: Usuario
+                nombre: Usuario,
+                correo: correo,
+                institucion_Id: id_institucion
             };
 
             const response = await _httpToken.post('/Usuario/Usuarios', JSON.stringify(UsuarioJSON));
