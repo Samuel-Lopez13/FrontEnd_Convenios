@@ -14,7 +14,6 @@ const btnCambios = ref(true)
     <div class="vistaDocumento d-flex justify-content-center align-items-center">
       <iframe src="https://docs.google.com/gview?url=https://github.com/Samuel-Lopez13/FrontEnd_Convenios/raw/main/Prueba.docx&embedded=true"
               style="width:800px; height:100%;">
-
       </iframe>
     </div>
     <div class="botones  p-3">

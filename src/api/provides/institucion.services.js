@@ -73,9 +73,9 @@ export const DatosInstituciones = {
         }
     },
 
-    getSearchInstituciones: async () => {
+    getSearchInstituciones: async (busqueda) => {
         try {
-            const response = await _httpToken.get('/Institucion/AllInstitution');
+            const response = await _httpToken.get('/Institucion/AllInstitution/' + busqueda);
             return response.data;
         } catch (error) {
             NotificacionError.ErrorWMensaje('Ops!', 'Ocurrio algun error');

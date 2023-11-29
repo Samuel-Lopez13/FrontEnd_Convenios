@@ -43,6 +43,17 @@ const TodasInsituciones = async () => {
     })
 }
 
+const BuscarInsituciones = async () => {
+    Instituciones.value = await DatosInstituciones.getSearchInstituciones(Busqueda.value)
+
+    Instituciones.value.map((item) => {
+        return {
+            institucion_Id: item.institucion_Id,
+            nombre: item.nombre
+        }
+    })
+}
+
 const agregarUsuario = async () => {
     //Agrega una nueva institucion
     await DatosPersonales.postUsuario(Nombre.value, Email.value, Id_Institucion.value);
@@ -52,8 +63,8 @@ const agregarUsuario = async () => {
     cerrarVentana()
 
     //Verifica que el numero de paginas cambie
-    var tamano = await DatosInstituciones.getPaginas()
-    store.state.Paginacion = tamano.paginas
+    var tamano = await DatosPersonales.getPaginas()
+    store.state.PaginacionU = tamano.paginas
 }
 
 const cerrarVentana = () => {
@@ -79,7 +90,7 @@ const cerrarVentana = () => {
             <div class="Nombre pb-3 d-flex flex-column">
                 <label class="form form-label">Institución</label>
                 <input type="text" class="form-control form-label" placeholder="Buscar institución..."
-                       v-model="Busqueda">
+                       v-model="Busqueda" @input="BuscarInsituciones">
                 <div class="instituciones p-3">
                     <div class="institucion d-flex flex-column justify-content-between"
                          v-for="(AllInstitutions, index) in Instituciones">
@@ -91,8 +102,7 @@ const cerrarVentana = () => {
                 </div>
                 <input type="text" readonly class="form-control form-label" v-model="Institucion">
             </div>
-            <div class="btn btn-primary form-label d-flex justify-content-center align-items-center" @click="">Agregar
-            </div>
+            <div class="btn btn-primary form-label d-flex justify-content-center align-items-center" @click="agregarUsuario">Agregar</div>
         </form>
     </div>
 </template>
