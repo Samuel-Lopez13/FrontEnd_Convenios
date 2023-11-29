@@ -1,6 +1,7 @@
 <script setup>
 import {onMounted, ref} from "vue";
 import router from "@/router";
+import {CREDENCIALES} from "@/utils/constantes/Constantes";
 import {DatosPersonales} from "@/api/provides/usuario.services";
 import store from "@/store";
 
@@ -29,6 +30,11 @@ const irContratoUser = () =>{
   router.push('/Contrato')
   currentRoute.value = 'Contrato';
 }
+
+const salir = async () => {
+    localStorage.removeItem(CREDENCIALES);
+    router.push('/');
+};
 
 /*const verificarRol = async () => {
   try {

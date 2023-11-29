@@ -99,10 +99,11 @@ const cerrarVentana = () => {
 
 <style scoped>
 .instituciones {
+    min-height: 100px;
     max-height: 100px;
     width: 100%;
-    border-radius: 8px;
-    border: 2px solid #B4B7BA;
+    border-radius: 5px;
+    border: 1px solid #d5d9de;
     transition: all .3s;
     margin-bottom: 20px;
     overflow-y: auto;
