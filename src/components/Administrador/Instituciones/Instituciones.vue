@@ -4,8 +4,8 @@
 import TuplasInstituciones from "@/components/Administrador/Instituciones/TuplasInstituciones.vue";
 import AgregarInstitucion from "@/components/Administrador/Instituciones/AgregarInstitucion.vue";
 import {DatosInstituciones} from "@/api/provides/institucion.services";
-import store from '@/store';
 import {onMounted, ref, watch} from "vue";
+import store from '@/store';
 
 /**************************************             VARIABLES             **********************************************/
 
@@ -30,6 +30,8 @@ watch(() => pagina, () => {
 watch(() => store.state.Paginacion, () => {
     paginaNueva(store.state.Paginacion)
 })
+
+/****************************************             METODOS             **********************************************/
 
 //Visualizara o no la ventana de agregar nueva institucion
 const cambiarAgregar = () => {
