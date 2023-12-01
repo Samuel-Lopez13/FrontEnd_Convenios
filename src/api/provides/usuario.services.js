@@ -1,4 +1,4 @@
-import {_httpGet, _http, _httpToken} from '@/api'
+import {configurarAxios , _httpGet, _http, _httpToken} from '@/api'
 import {NotificacionExito, NotificacionError} from "@/alertas/alerts";
 import router from "@/router";
 import {CREDENCIALES} from "@/utils/constantes/Constantes";
@@ -7,12 +7,14 @@ import store from "@/store";
 export const DatosPersonales = {
     loginUser: async (email, contrasena) => {
         try {
+            configurarAxios();
             const response = await _http.post('/Usuario/Login', {
                 email: email,
                 contrasena: contrasena,
             });
             if (response.data.token != null) {
                 localStorage.setItem(CREDENCIALES, response.data.token)
+                configurarAxios();
                 NotificacionExito.ExitosoWMensaje('Bienvenido')
                 setTimeout(function () {
                     if (response.data.rol === "Administrador"){

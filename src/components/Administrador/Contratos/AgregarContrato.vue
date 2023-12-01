@@ -6,6 +6,7 @@ import {onMounted, ref} from "vue";
 import {DatosContratos} from "@/api/provides/contratos.services";
 import {DatosInstituciones} from "@/api/provides/institucion.services";
 import {DatosPersonales} from "@/api/provides/usuario.services";
+import {NotificacionExito} from "@/alertas/alerts";
 
 /**************************************             VARIABLES             **********************************************/
 
@@ -76,7 +77,7 @@ const agregarContrato = async () => {
     })
         .then(response => {
             if (response.ok) {
-                return response.json();
+                NotificacionExito.ExitosoWMensaje('Contrato creado con exito')
             } else {
                 throw new Error('Error al crear el contrato');
             }

@@ -127,7 +127,7 @@ const eliminarContrato = async (index, id) => {
     <td>{{ contratos.nombreFile }}</td>
     <td>{{ contratos.institucion }}</td>
     <td><i class="bi bi-pencil-fill edit"></i></td>
-    <td><i class="bi bi-trash3-fill delete" @click="eliminarContrato(index, contratos.institucion_Id)"></i></td>
+    <td><i class="bi bi-trash3-fill delete" @click="eliminarContrato(index, contratos.contrato_Id)"></i></td>
   </tr>
 </template>
 
