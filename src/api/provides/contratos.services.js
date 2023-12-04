@@ -1,4 +1,4 @@
-import {_httpGet, _http, _httpToken, _httpTokenFile, autorization} from '@/api'
+import {autorization} from '@/api'
 import {NotificacionExito, NotificacionError} from "@/alertas/alerts";
 import axios from "axios";
 import {BASEURL} from "@/utils/constantes/Constantes";

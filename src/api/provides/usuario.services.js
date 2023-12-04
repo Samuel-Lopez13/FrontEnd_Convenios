@@ -1,4 +1,4 @@
-import {configurarAxios, autorization, sinAutorizationJSON, _httpGet, _http, _httpToken, autorizationJSON} from '@/api'
+import {autorization, sinAutorizationJSON, autorizationJSON} from '@/api'
 import {NotificacionExito, NotificacionError} from "@/alertas/alerts";
 import router from "@/router";
 import {BASEURL, CREDENCIALES} from "@/utils/constantes/Constantes";
