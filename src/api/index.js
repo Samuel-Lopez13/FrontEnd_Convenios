@@ -34,8 +34,39 @@ import axios from 'axios';
 
 let _httpGet, _http, _httpToken, _httpTokenFile;
 
+const sinAutorizationJSON = (data) => {
+    const config = {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    };
+
+    return [data, config];
+}
+
+const autorization = () => {
+    const config = {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem("Credenciales")}`
+        },
+    };
+
+    return config;
+}
+
+const autorizationJSON = (data) => {
+    const config = {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem("Credenciales")}`
+        },
+    };
+
+    return [data, config];
+}
+
 const configurarAxios = () => {
-    console.log("ya cargué");
     const _baseUrl = 'http://localhost:5193';
 
     _httpGet = axios.create({ baseURL: _baseUrl });
@@ -62,4 +93,4 @@ const configurarAxios = () => {
 };
 
 // Exporta las funciones de configuración para que puedan ser llamadas desde otros módulos
-export { configurarAxios, _httpGet, _http, _httpToken, _httpTokenFile };
+export { autorization, autorizationJSON, configurarAxios, sinAutorizationJSON, _httpGet, _http, _httpToken, _httpTokenFile };

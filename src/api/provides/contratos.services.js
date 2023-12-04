@@ -1,24 +1,26 @@
-import {_httpGet, _http, _httpToken, _httpTokenFile} from '@/api'
+import {_httpGet, _http, _httpToken, _httpTokenFile, autorization} from '@/api'
 import {NotificacionExito, NotificacionError} from "@/alertas/alerts";
+import axios from "axios";
+import {BASEURL} from "@/utils/constantes/Constantes";
 
 export const DatosContratos = {
 
     getContratos: async (pagina) => {
         try {
-            const response = await _httpToken.get('/Contratos/Contratos/' + pagina);
+            const response = await axios.get(BASEURL + '/Contratos/Contratos/' + pagina, autorization());
 
             return response.data;
         } catch (error) {
-            NotificacionError.ErrorWMensaje('Ops!', 'Ocurrio algun error');
+            NotificacionError.ErrorWMensaje('Ops!', error);
         }
     },
 
     getPaginas: async () => {
         try {
-            const response = await _httpToken.get('/Contratos/Paginas');
+            const response = await axios.get(BASEURL + '/Contratos/Paginas', autorization());
             return response.data;
         } catch (error) {
-            NotificacionError.ErrorWMensaje('Ops!', 'Ocurrio algun error');
+            NotificacionError.ErrorWMensaje('Ops!', error);
         }
     },
 
@@ -41,28 +43,28 @@ export const DatosContratos = {
 
     deleteContratos: async (id) => {
         try {
-            const response = await _httpToken.delete('/Contratos/Contrato/' + id);
+            const response = await axios.delete(BASEURL + '/Contratos/Contrato/' + id, autorization());
             NotificacionExito.ExitosoWMensaje('Institucion eliminada con exito')
         } catch (error) {
-            NotificacionError.ErrorWMensaje('Ops!', 'Ocurrio algun error');
+            NotificacionError.ErrorWMensaje('Ops!', error);
         }
     },
 
     getBusquedaContratos: async (pagina, busqueda) => {
         try {
-            const response = await _httpToken.get('/Contratos/Buscar?pagina=' + pagina + '&nombre=' + busqueda);
+            const response = await axios.get(BASEURL + '/Contratos/Buscar?pagina=' + pagina + '&nombre=' + busqueda, autorization());
             return response.data;
         } catch (error) {
-            NotificacionError.ErrorWMensaje('Ops!', 'Ocurrio algun error');
+            NotificacionError.ErrorWMensaje('Ops!', error);
         }
     },
 
     getPaginasBusqueda: async (busqueda) => {
         try {
-            const response = await _httpToken.get('/Contratos/Paginas/' + busqueda);
+            const response = await axios.get(BASEURL + '/Contratos/Paginas/' + busqueda, autorization());
             return response.data;
         } catch (error) {
-            NotificacionError.ErrorWMensaje('Ops!', 'Ocurrio algun error');
+            NotificacionError.ErrorWMensaje('Ops!', error);
         }
     },
 

@@ -1,20 +1,25 @@
-import {configurarAxios , _httpGet, _http, _httpToken} from '@/api'
+import {configurarAxios, autorization, sinAutorizationJSON, _httpGet, _http, _httpToken, autorizationJSON} from '@/api'
 import {NotificacionExito, NotificacionError} from "@/alertas/alerts";
 import router from "@/router";
-import {CREDENCIALES} from "@/utils/constantes/Constantes";
+import {BASEURL, CREDENCIALES} from "@/utils/constantes/Constantes";
 import store from "@/store";
+import axios from "axios";
 
 export const DatosPersonales = {
     loginUser: async (email, contrasena) => {
         try {
-            configurarAxios();
-            const response = await _http.post('/Usuario/Login', {
+            const usuarioJSON = {
                 email: email,
                 contrasena: contrasena,
-            });
+            };
+
+            const [data, config] = sinAutorizationJSON(usuarioJSON);
+
+            const response = await axios.post(BASEURL + '/Usuario/Login', data, config);
+
             if (response.data.token != null) {
                 localStorage.setItem(CREDENCIALES, response.data.token)
-                configurarAxios();
+
                 NotificacionExito.ExitosoWMensaje('Bienvenido')
                 setTimeout(function () {
                     if (response.data.rol === "Administrador"){
@@ -37,73 +42,71 @@ export const DatosPersonales = {
         }
     },
 
-    /* Nuevo y en desarrollo */
-
     getUsuarios: async (pagina) => {
         try {
-            const response = await _httpToken.get('/Usuario/Usuarios/' + pagina);
+            const response = await axios.get(BASEURL + '/Usuario/Usuarios/' + pagina, autorization());
 
             return response.data;
         } catch (error) {
-            NotificacionError.ErrorWMensaje('Ops!', 'Ocurrio algun error');
+            NotificacionError.ErrorWMensaje('Ops!', error);
         }
     },
 
     getPaginas: async () => {
         try {
-            const response = await _httpToken.get('/Usuario/Paginas');
+            const response = await axios.get(BASEURL + '/Usuario/Paginas', autorization());
             return response.data;
         } catch (error) {
-            NotificacionError.ErrorWMensaje('Ops!', 'Ocurrio algun error');
+            NotificacionError.ErrorWMensaje('Ops!', error);
         }
     },
 
     postUsuario: async (Usuario, correo, id_institucion) => {
         try {
-            const UsuarioJSON = {
+            const usuarioJSON = {
                 nombre: Usuario,
                 correo: correo,
                 institucion_Id: id_institucion
             };
 
-            const response = await _httpToken.post('/Usuario/Usuarios', JSON.stringify(UsuarioJSON));
+            const [data, config] = autorizationJSON(usuarioJSON);
+
+            const response = await axios.post(BASEURL + '/Usuario/Usuarios', data, config);
             NotificacionExito.ExitosoWMensaje('Usuario registrado con exito')
         } catch (error) {
-            NotificacionError.ErrorWMensaje('Ops!', 'Ocurrio algun error');
+            NotificacionError.ErrorWMensaje('Ops!', error);
         }
     },
 
     deleteUsuario: async (id) => {
         try {
-            const response = await _httpToken.delete('/Usuario/Usuario/' + id);
+            const response = await axios.delete(BASEURL + '/Usuario/Usuario/' + id, autorization());
             NotificacionExito.ExitosoWMensaje('usuario eliminado con exito')
         } catch (error) {
-            NotificacionError.ErrorWMensaje('Ops!', 'Ocurrio algun error');
+            NotificacionError.ErrorWMensaje('Ops!', error);
         }
     },
 
     getBusquedaUsuario: async (pagina, busqueda) => {
         try {
-            const response = await _httpToken.get('/Usuario/Buscar?pagina=' + pagina + '&nombre=' + busqueda);
+            const response = await axios.get(BASEURL + '/Usuario/Buscar?pagina=' + pagina + '&nombre=' + busqueda, autorization());
             return response.data;
         } catch (error) {
-            //NotificacionError.ErrorWMensaje('Ops!', 'Ocurrio algun error');
-            console.log(error);
+            NotificacionError.ErrorWMensaje('Ops!', error);
         }
     },
 
     getPaginasBusqueda: async (busqueda) => {
         try {
-            const response = await _httpToken.get('/Usuario/Paginas/' + busqueda);
+            const response = await axios.get(BASEURL + '/Usuario/Paginas/' + busqueda, autorization());
             return response.data;
         } catch (error) {
-            //NotificacionError.ErrorWMensaje('Ops!', 'Ocurrio algun error');
-            console.log(error);
+            NotificacionError.ErrorWMensaje('Ops!', error);
         }
     },
 
     userRol: async () =>{
-        const response2 = await _httpToken.get('/Usuario/Rol')
+        const response2 = await axios.get(BASEURL + '/Usuario/Rol', autorization());
         return response2.data.rol;
     }
 }

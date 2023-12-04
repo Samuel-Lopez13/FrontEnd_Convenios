@@ -1,26 +1,26 @@
-import {_httpGet, _http, _httpToken} from '@/api'
+import {autorization, autorizationJSON} from '@/api'
 import {NotificacionExito, NotificacionError} from "@/alertas/alerts";
-import {CREDENCIALES} from "@/utils/constantes/Constantes";
-import router from "@/router";
+import {BASEURL} from "@/utils/constantes/Constantes";
+import axios from "axios";
 
 export const DatosInstituciones = {
 
     getInstituciones: async (pagina) => {
         try {
-            const response = await _httpToken.get('/Institucion/Instituciones/' + pagina);
+            const response = await axios.get(BASEURL + '/Institucion/Instituciones/' + pagina, autorization());
 
             return response.data;
         } catch (error) {
-            NotificacionError.ErrorWMensaje('Ops!', 'Ocurrio algun error');
+            NotificacionError.ErrorWMensaje('Ops!', error);
         }
     },
 
     getPaginas: async () => {
         try {
-            const response = await _httpToken.get('/Institucion/Paginas');
+            const response = await axios.get(BASEURL + '/Institucion/Paginas', autorization());
             return response.data;
         } catch (error) {
-            NotificacionError.ErrorWMensaje('Ops!', 'Ocurrio algun error');
+            NotificacionError.ErrorWMensaje('Ops!', error);
         }
     },
 
@@ -30,55 +30,57 @@ export const DatosInstituciones = {
                 nombre: institucion
             };
 
-            const response = await _httpToken.post('/Institucion/Institucion', JSON.stringify(institucionJSON));
+            const [data, config] = autorizationJSON(institucionJSON);
+
+            const response = await axios.post(BASEURL + '/Institucion/Institucion', data, config);
             NotificacionExito.ExitosoWMensaje('Institucion registrada con exito')
         } catch (error) {
-            NotificacionError.ErrorWMensaje('Ops!', 'Ocurrio algun error');
+            NotificacionError.ErrorWMensaje('Ops!', error);
         }
     },
 
     deleteInstitucion: async (id) => {
         try {
-            const response = await _httpToken.delete('/Institucion/Institucion/' + id);
+            const response = await axios.delete(BASEURL + '/Institucion/Institucion/' + id, autorization());
             NotificacionExito.ExitosoWMensaje('Institucion eliminada con exito')
         } catch (error) {
-            NotificacionError.ErrorWMensaje('Ops!', 'Ocurrio algun error');
+            NotificacionError.ErrorWMensaje('Ops!', error);
         }
     },
 
     getBusquedaInstituciones: async (pagina, busqueda) => {
         try {
-            const response = await _httpToken.get('/Institucion/Buscar?pagina=' + pagina + '&nombre=' + busqueda);
+            const response = await axios.get(BASEURL + '/Institucion/Buscar?pagina=' + pagina + '&nombre=' + busqueda, autorization());
             return response.data;
         } catch (error) {
-            NotificacionError.ErrorWMensaje('Ops!', 'Ocurrio algun error');
+            NotificacionError.ErrorWMensaje('Ops!', error);
         }
     },
 
     getPaginasBusqueda: async (busqueda) => {
         try {
-            const response = await _httpToken.get('/Institucion/Paginas/' + busqueda);
+            const response = await axios.get(BASEURL + '/Institucion/Paginas/' + busqueda, autorization());
             return response.data;
         } catch (error) {
-            NotificacionError.ErrorWMensaje('Ops!', 'Ocurrio algun error');
+            NotificacionError.ErrorWMensaje('Ops!', error);
         }
     },
 
     getAllInstituciones: async () => {
         try {
-            const response = await _httpToken.get('/Institucion/AllInstitution');
+            const response = await axios.get(BASEURL + '/Institucion/AllInstitution',  autorization());
             return response.data;
         } catch (error) {
-            NotificacionError.ErrorWMensaje('Ops!', 'Ocurrio algun error');
+            NotificacionError.ErrorWMensaje('Ops!', error);
         }
     },
 
     getSearchInstituciones: async (busqueda) => {
         try {
-            const response = await _httpToken.get('/Institucion/AllInstitution/' + busqueda);
+            const response = await axios.get(BASEURL + '/Institucion/AllInstitution/' + busqueda, autorization());
             return response.data;
         } catch (error) {
-            NotificacionError.ErrorWMensaje('Ops!', 'Ocurrio algun error');
+            NotificacionError.ErrorWMensaje('Ops!', error);
         }
     }
 
