@@ -8,8 +8,10 @@ import store from "@/store";
 const vistaAdmin = ref(store.state.vistaAdmin);
 const vistaUser = ref(store.state.vistaUser);
 const currentRoute = ref(router.currentRoute.value.name);
+const contratosUsuario = ref([])
 
 onMounted(() => {
+  verContratosUsuarios()
 })
 const irContratos = () => {
     router.push('/Contratos');
@@ -26,8 +28,23 @@ const irInstituciones = () => {
     currentRoute.value = 'InstitucionesAdmin';
 };
 
-const irContratoUser = () =>{
-  router.push('/Contrato')
+const verContratosUsuarios = async () =>{
+  contratosUsuario.value = await DatosPersonales.getContratosUser()
+  contratosUsuario.value.map((item) => {
+    return {
+      contratos_Id:item.contratos_Id,
+      nombre: item.nombre
+    }
+  })
+
+  console.log(contratosUsuario.value)
+}
+const irContratoUser = (id) =>{
+  console.log(id)
+  router.push({
+    name: 'Contrato',
+    params: { idContrato: id }
+  });
   currentRoute.value = 'Contrato';
 }
 
@@ -35,6 +52,8 @@ const salir = async () => {
     localStorage.removeItem(CREDENCIALES);
     router.push('/');
 };
+
+
 
 /*const verificarRol = async () => {
   try {
@@ -58,18 +77,22 @@ const salir = async () => {
     <nav class="w-100 h-100 d-flex flex-column justify-content-between"
          style="background-color: white; box-shadow: 8px 0 10px rgba(0, 0, 0, 0.1)">
         <!-- USUARIO -->
-        <div class="user d-flex flex-column align-items-center" v-if="vistaUser">
-            <div class="h4 d-flex justify-content-center align-items-center"
-                 style="width: 100%; height: 50px;font-weight: bold">CONTRATOS
-            </div>
-            <div class="d-flex justify-content-center align-items-center contrato" @click="irContratoUser"
-                 :class="{ 'activo': currentRoute === 'Contrato' }">
-                <div class="w-50">
-                    Contrato 01
-                </div>
-                <i class="bi bi-file-text-fill"></i>
-            </div>
+      <div class="user d-flex flex-column align-items-center" v-if="vistaUser">
+        <div class="h4 d-flex justify-content-center align-items-center"
+             style="width: 100%; height: 50px;font-weight: bold">CONTRATOS
         </div>
+        <div class="d-flex justify-content-center align-items-center contrato"
+             v-for="(ContratosUsuarios, index) in contratosUsuario"
+             :class="{ 'activo': currentRoute === 'idContrato' && currentRoute.params.idContrato === ContratosUsuarios.contratos_Id }"
+             @click="irContratoUser(ContratosUsuarios.contratos_Id)"
+        >
+          <div class="w-50">
+            {{ ContratosUsuarios.nombre }}
+          </div>
+          <i class="bi bi-file-text-fill"></i>
+        </div>
+
+      </div>
         <!-- ADMINISTRADOR -->
         <div class="user d-flex flex-column align-items-center" v-if="vistaAdmin">
             <div class="h4 d-flex justify-content-center align-items-center"

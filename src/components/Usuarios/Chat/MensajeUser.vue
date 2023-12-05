@@ -24,7 +24,7 @@ const obtenerChats = async () => {
                         {{mensaje}}
                     </p>
                 </div>
-                <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-5.webp" alt="avatar"
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/340px-Default_pfp.svg.png" alt="avatar"
                      class="rounded-circle d-flex align-self-center ms-3 shadow-1-strong" width="40">
             </div>
         </div>

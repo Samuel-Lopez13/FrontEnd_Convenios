@@ -108,5 +108,14 @@ export const DatosPersonales = {
     userRol: async () =>{
         const response2 = await axios.get(BASEURL + '/Usuario/Rol', autorization());
         return response2.data.rol;
+    },
+
+    getContratosUser : async () =>{
+        try {
+            const response = await axios.get(BASEURL + '/Contratos/ContratosUsuario', autorization())
+            return response.data;
+        }catch (error){
+            console.log('No hay contratos para este usuario')
+        }
     }
 }

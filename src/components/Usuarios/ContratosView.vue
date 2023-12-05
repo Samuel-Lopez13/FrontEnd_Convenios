@@ -1,27 +1,44 @@
 <script setup>
 
 /****************************************             IMPORT             ***********************************************/
-
 import {DatosChat} from "@/api/provides/chat.services";
+import {DatosPersonales} from "@/api/provides/usuario.services";
 import {ref, onMounted, watch} from "vue";
 import MensajeUser from "@/components/Usuarios/Chat/MensajeUser.vue";
 import Opciones from "@/components/Usuarios/Opciones.vue";
-
+import { useRoute } from 'vue-router';
+import store from "@/store";
+import {DatosContratos} from "@/api/provides/contratos.services";
 /**************************************             VARIABLES             **********************************************/
 
+
+const route = useRoute();
+const idContrato = ref(route.params.idContrato);
+//const id = ref(null)
 const chat = ref([]);
 const textMensaje = ref("");
-
 /*************************************             ON MOUNTED             **********************************************/
 
 onMounted(() => {
     obtenerChats();
+    obtenerRol()
 })
 
-/****************************************             METODOS             **********************************************/
-const obtenerChats = async () => {
-    chat.value = await DatosChat.getMensajes(2);
+/*************************************             WATCH            **********************************************/
 
+/****************************************             METODOS             **********************************************/
+
+const obtenerRol = async  () =>{
+  var rol = await DatosPersonales.userRol();
+  if (rol === "Usuario"){
+    watch(() => route.params.idContrato, (newIdContrato) => {
+      idContrato.value = newIdContrato;
+      obtenerChats();
+    });
+  }
+}
+const obtenerChats = async () => {
+    chat.value = await DatosChat.getMensajes(idContrato.value);
     chat.value.map((item) => {
         return {
             mensaje: item.mensaje,
@@ -32,7 +49,7 @@ const obtenerChats = async () => {
 }
 
 const MandarMensaje = async () => {
-    await DatosChat.postMensaje(textMensaje.value, 2);
+    await DatosChat.postMensaje(textMensaje.value,idContrato.value);
     textMensaje.value = "";
     obtenerChats();
 }

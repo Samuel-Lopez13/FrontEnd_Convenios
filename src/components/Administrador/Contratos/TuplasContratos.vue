@@ -3,6 +3,7 @@
 import {DatosContratos} from "@/api/provides/contratos.services";
 import {ref, onMounted, watch} from "vue";
 import store from "@/store";
+import router from "@/router";
 
 /****************************************             PROPS             ************************************************/
 
@@ -70,7 +71,6 @@ const obtenerContratos = async () => {
 //Devuelve las instituciones que coincidan con la busqueda y el numero de pagina
 const busqueda = async () => {
     contratos.value = await DatosContratos.getBusquedaContratos(props.pagina, store.state.BusquedaContratos)
-
     contratos.value.map((item) => {
         return {
             contrato_Id: item.contrato_Id,
@@ -103,6 +103,14 @@ const eliminarContrato = async (index, id) => {
 
     store.state.PaginacionC = tamano.paginas
 }
+
+const irContratoUser = (id) =>{
+  console.log(id)
+  router.push({
+    name: 'Contrato',
+    params: { idContrato: id }
+  });
+}
 </script>
 
 <template>
@@ -120,7 +128,7 @@ const eliminarContrato = async (index, id) => {
     </tr>
   <tr v-for="(contratos, index) in contratos" v-if="!carga">
     <th>{{index + 1}}</th>
-    <td>{{ contratos.nombre }}</td>
+    <td @click="irContratoUser(contratos.contrato_Id)" class="irContrato">{{ contratos.nombre }}</td>
     <td>{{ contratos.descripcion }}</td>
     <td>{{ contratos.fechaCreacion }}</td>
     <td>{{ contratos.fechaFinalizacion }}</td>
@@ -132,6 +140,11 @@ const eliminarContrato = async (index, id) => {
 </template>
 
 <style scoped>
+
+.irContrato:hover{
+  cursor: pointer;
+  color: royalblue;
+}
 .edit:hover {
   color: royalblue;
   cursor: pointer;

@@ -2,6 +2,8 @@ import {NotificacionError} from "@/alertas/alerts";
 import {autorization, autorizationJSON} from '@/api'
 import axios from "axios";
 import {BASEURL} from "@/utils/constantes/Constantes";
+import { useRouter } from 'vue-router';
+
 export const DatosChat = {
     postMensaje: async (mensaje, id) => {
         try {
@@ -30,3 +32,4 @@ export const DatosChat = {
         }
     }
 };
+
