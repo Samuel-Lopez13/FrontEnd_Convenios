@@ -20,6 +20,9 @@ export default new createStore({
         //Sidebar
         vistaAdmin: false,
         vistaUser: false,
+
+        //Revision
+        Revision: false,
     },
     mutations: {
         setVistaAdmin(state, value) {

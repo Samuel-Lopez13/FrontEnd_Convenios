@@ -59,9 +59,7 @@ const agregarUsuario = async () => {
     await DatosPersonales.postUsuario(Nombre.value, Email.value, Id_Institucion.value);
     //Cuando cambie se actualizaran las instituciones
     store.state.CrearUsuario = true
-
     cerrarVentana()
-
     //Verifica que el numero de paginas cambie
     var tamano = await DatosPersonales.getPaginas()
     store.state.PaginacionU = tamano.paginas

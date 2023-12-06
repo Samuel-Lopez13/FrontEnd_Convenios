@@ -17,12 +17,17 @@ const idContrato = ref(route.params.idContrato);
 //const id = ref(null)
 const chat = ref([]);
 const textMensaje = ref("");
+const NombreContrato = ref("");
+const fileContrato = ref("");
 /*************************************             ON MOUNTED             **********************************************/
 
 onMounted(() => {
     obtenerChats();
-    obtenerRol()
+    obtenerRol();
+    datosContrato();
 })
+
+
 
 /*************************************             WATCH            **********************************************/
 
@@ -34,6 +39,7 @@ const obtenerRol = async  () =>{
     watch(() => route.params.idContrato, (newIdContrato) => {
       idContrato.value = newIdContrato;
       obtenerChats();
+      datosContrato();
     });
   }
 }
@@ -54,20 +60,25 @@ const MandarMensaje = async () => {
     obtenerChats();
 }
 
+const datosContrato = async () =>{
+  NombreContrato.value= await DatosContratos.contratoNombre(idContrato.value);
+  var files = await DatosContratos.contratoFile(idContrato.value)
+  fileContrato.value = "https://docs.google.com/viewer?url=" + files + "&embedded=true"
+}
 </script>
 
 <template>
     <div class="contenedor w-100 h-100 d-flex bg-light">
         <div class="vistaDocumento d-flex justify-content-center align-items-center">
             <iframe
-                src="https://docs.google.com/gview?url=https://github.com/Samuel-Lopez13/FrontEnd_Convenios/raw/main/Prueba.docx&embedded=true"
+                :src="fileContrato"
                 style="width:800px; height:100%;">
             </iframe>
         </div>
         <opciones/>
         <div class="chat bg-light">
             <div class="nombreContrato h3 m-0 d-flex align-items-center justify-content-center">
-                CONTRATO 01
+              {{ NombreContrato }}
             </div>
             <div class="contenidoChat">
                 <MensajeUser v-for="(chats, index) in chat" :key="index"

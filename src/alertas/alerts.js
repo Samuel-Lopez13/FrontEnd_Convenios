@@ -38,6 +38,18 @@ export const NotificacionExito={
                                 `,
         })
     },
+    ExitosoW: async (texto="Exito al realizar la operación") => {
+        Swal.fire({
+            background: '#9cb8ff',
+            icon:'success',
+            iconColor:'#045cda',
+            position: 'center',
+            showConfirmButton: false,
+            html              : `
+                                 <h1 style="color: #045cda; font-weight: bold">${texto}</h1>
+                                `,
+        })
+    },
 }
 export const NotificacionError = {
     ErrorWMensaje:async (msg="Credenciales no validas", msgE="Algo salió mal") => {
@@ -60,4 +72,20 @@ export const NotificacionError = {
             timer: 1500
         })
     }
+}
+
+export const NotificacionFirma = {
+    Firmar: async (pregunta = '¿Seguro que deseas aplicar la firma?') => {
+        return await Swal.fire({
+            icon: 'warning',
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            showCancelButton: true,
+            html: `<b>${pregunta}</b>`, // Aquí se aplican los estilos necesarios
+            confirmButtonColor: '#3085d6', // Cambia el color del botón OK
+            cancelButtonColor: '#d33', // Cambia el color del botón Cancelar
+            confirmButtonText: 'Firmar', // Cambia el texto del botón OK
+            cancelButtonText: 'Cancelar' // Cambia el texto del botón Cancelar
+        });
+    },
 }

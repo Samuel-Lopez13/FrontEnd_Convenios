@@ -1,4 +1,4 @@
-import {autorization} from '@/api'
+import {autorization, autorizationJSON, sinAutorizationJSON} from '@/api'
 import {NotificacionExito, NotificacionError} from "@/alertas/alerts";
 import axios from "axios";
 import {BASEURL} from "@/utils/constantes/Constantes";
@@ -68,4 +68,67 @@ export const DatosContratos = {
         }
     },
 
+    contratoFile: async (id) =>{
+        try {
+            const response = await axios.get(BASEURL + '/Contratos/ContratosFile/' + id, autorization());
+            return response.data.file
+        } catch (error){
+            NotificacionError.ErrorWMensaje('Ops!', error);
+        }
+    },
+
+    contratoNombre: async (id) =>{
+        try {
+            const response = await axios.get(BASEURL + '/Contratos/ContratosFile/' + id, autorization());
+            return response.data.nombre
+        } catch (error){
+            NotificacionError.ErrorWMensaje('Ops!', error);
+        }
+    },
+
+    obtenerStatusRevision: async (id) =>{
+        try {
+            const response = await axios.get(BASEURL + '/Contratos/Revision/' + id, autorization());
+            console.log(response.data.revision)
+            return response.data.revision;
+        } catch (error){
+            NotificacionError.ErrorWMensaje('Ops!', error);
+        }
+    },
+
+    Firma: async (id_Contrato) => {
+        try {
+            const firmaJSON = {
+                id_Contrato: id_Contrato,
+            };
+            const [data, config] = autorizationJSON(firmaJSON);
+            const response = await axios.put(BASEURL + '/Contratos/Firma', data, config);
+            NotificacionExito.ExitosoWMensaje('Solicitaste la firma de la contraparte')
+        } catch (error) {
+            NotificacionError.ErrorWMensaje('Ops!', error);
+        }
+    },
+
+    getStatusFirma:async (Contrato_Id) =>{
+        try {
+            const response = await axios.get(BASEURL + '/Contratos/Firma/' + Contrato_Id, autorization());
+            console.log("firma es: " + response.data.firma)
+            return response.data.firma;
+        } catch (error){
+            NotificacionError.ErrorWMensaje('Ops!', error);
+        }
+    },
+
+    FirmaUsuario: async (contrato_Id,status) => {
+        try {
+            const firmaUsuarioJSON = {
+                contrato_Id: contrato_Id,
+                status: status,
+            };
+            const [data, config] = autorizationJSON(firmaUsuarioJSON);
+            const response = await axios.put(BASEURL + '/Contratos/FirmaUsuario', data, config);
+        } catch (error) {
+            NotificacionError.ErrorWMensaje('Ops!', error);
+        }
+    },
 }

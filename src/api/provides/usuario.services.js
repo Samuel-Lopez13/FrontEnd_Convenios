@@ -72,7 +72,7 @@ export const DatosPersonales = {
             const [data, config] = autorizationJSON(usuarioJSON);
 
             const response = await axios.post(BASEURL + '/Usuario/Usuarios', data, config);
-            NotificacionExito.ExitosoWMensaje('Usuario registrado con exito')
+            NotificacionExito.ExitosoW("La contraseña del usuario es: " + response.data.contrasena)
         } catch (error) {
             NotificacionError.ErrorWMensaje('Ops!', error);
         }
@@ -117,5 +117,7 @@ export const DatosPersonales = {
         }catch (error){
             console.log('No hay contratos para este usuario')
         }
-    }
+    },
+
+
 }
