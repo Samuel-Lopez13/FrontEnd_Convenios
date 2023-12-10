@@ -4,6 +4,7 @@ import {DatosContratos} from "@/api/provides/contratos.services";
 import {ref, onMounted, watch} from "vue";
 import store from "@/store";
 import router from "@/router";
+import {NotificacionAdvertencia} from "@/alertas/alerts";
 
 /****************************************             PROPS             ************************************************/
 
@@ -87,6 +88,8 @@ const busqueda = async () => {
 
 const eliminarContrato = async (index, id) => {
     //Elimina el contrato visualmente
+  const eliminar = await NotificacionAdvertencia.Eliminar('¿Seguro que deseas eliminar este contrato?')
+  if (eliminar.isConfirmed) {
     contratos.value.splice(index, 1);
     //Elimina el contrato de la base de datos
     await DatosContratos.deleteContratos(id);
@@ -94,14 +97,15 @@ const eliminarContrato = async (index, id) => {
     var tamano = 0
 
     //Si esta en busqueda o no dependiendo
-    if(store.state.BusquedaContratos === ""){
-        //Verifica que el numero de paginas cambie
-        tamano = await DatosContratos.getPaginas()
+    if (store.state.BusquedaContratos === "") {
+      //Verifica que el numero de paginas cambie
+      tamano = await DatosContratos.getPaginas()
     } else {
-        tamano = await DatosContratos.getPaginasBusqueda(store.state.BusquedaContratos)
+      tamano = await DatosContratos.getPaginasBusqueda(store.state.BusquedaContratos)
     }
 
     store.state.PaginacionC = tamano.paginas
+  }
 }
 
 const irContratoUser = (id) =>{

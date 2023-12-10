@@ -106,7 +106,7 @@ const statusFirma =  async () =>{
 }
 
 const FirmarContrato = async () =>{
-  const resultadoFirma = await NotificacionFirma.Firmar();
+  const resultadoFirma = await NotificacionFirma.Firmar('¿Seguro que deseas aplicar la firma?');
   if (resultadoFirma.isConfirmed) {
     await DatosContratos.FirmaUsuario(idC.value, statusF.value)
     NotificacionExito.ExitosoWMensaje('Firmaste el contrato')
