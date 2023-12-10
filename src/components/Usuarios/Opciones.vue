@@ -21,6 +21,8 @@ const btnCambios = ref(true)
 
 const statusF = ref(false);
 const Admin = ref(false)
+const Status = ref("Activo")
+const resultadoFirmar = ref(true);
 
 onMounted(async ()=>{
   await verificarRol();
@@ -30,7 +32,6 @@ onMounted(async ()=>{
 
 watch(() => store.state.Revision, () => {
     statusRevision();
-    statusFirma();
     store.state.Revision = false;
 })
 
@@ -111,6 +112,7 @@ const FirmarContrato = async () =>{
     NotificacionExito.ExitosoWMensaje('Firmaste el contrato')
     console.log()
     btnFirmar.value =false;
+    Status.value = "Inactivo";
   }else{
     console.log('El usuario no confirmo')
   }
@@ -122,7 +124,7 @@ const FirmarContrato = async () =>{
     <div class="fase h4 d-flex justify-content-center align-items-center">
       ACCIONES
     </div>
-    <h5 class="h5 text-center mb-3">Status : A/I</h5>
+    <h5 class="h5 text-center mb-3">Status : {{Status}}</h5>
     <div class="opciones d-flex flex-column justify-content-between">
       <div class="accione">
         <div class="botonUser" v-if="!Admin">
