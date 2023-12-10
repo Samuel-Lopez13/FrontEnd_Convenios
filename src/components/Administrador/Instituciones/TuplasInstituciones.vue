@@ -126,7 +126,7 @@ const eliminarInstitucion = async (index, id) => {
         <td>{{ institucion.nombre }}</td>
         <td>{{ institucion.estado }}</td>
         <td>{{ institucion.pais }}</td>
-        <td>{{ institucion.identificacion }}</td>
+        <td>ID :{{ institucion.identificacion }}</td>
         <td>{{ institucion.direccion }}</td>
         <td><i class="bi bi-pencil-fill edit"></i></td>
         <td><i class="bi bi-trash3-fill delete" @click="eliminarInstitucion(index, institucion.institucion_Id)"></i></td>
