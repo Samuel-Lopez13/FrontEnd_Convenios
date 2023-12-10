@@ -82,6 +82,35 @@ export const DatosInstituciones = {
         } catch (error) {
             NotificacionError.ErrorWMensaje('Ops!', error);
         }
-    }
+    },
+
+    getInstitucionFull: async (id) => {
+        try {
+            const response = await axios.get(BASEURL + '/Institucion/intitucionFull', autorization());
+            console.log(response.data.full);
+            return response.data.full;
+        } catch (error) {
+            NotificacionError.ErrorWMensaje('Ops!', error);
+        }
+    },
+
+    updateInstitucion: async (pais, estado, ciudad, identificacion, direccion) => {
+        try {
+            const institucionJSON = {
+                pais: pais,
+                estado: estado,
+                ciudad: ciudad,
+                identificacion: identificacion,
+                direccion: direccion
+            };
+
+            const [data, config] = autorizationJSON(institucionJSON);
+
+            const response = await axios.put(BASEURL + '/Institucion/Institucion', data, config);
+            NotificacionExito.ExitosoWMensaje('Institucion modificada con exito')
+        } catch (error) {
+            NotificacionError.ErrorWMensaje('Ops!', error);
+        }
+    },
 
 }

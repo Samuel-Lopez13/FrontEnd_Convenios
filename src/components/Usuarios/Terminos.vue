@@ -1,8 +1,13 @@
 <script setup>
-import {ref} from "vue";
+import {ref, onMounted} from "vue";
 import DatosInstitucion from "@/components/Usuarios/DatosInstitucion.vue";
+import {DatosInstituciones} from "@/api/provides/institucion.services";
 
-const completar = ref(false)
+const completar = ref(true)
+
+onMounted(async ()=>{
+    completar.value = !await DatosInstituciones.getInstitucionFull()
+})
 
 const cerrarCompletar = () =>{
   completar.value = false

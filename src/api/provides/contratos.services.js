@@ -73,7 +73,7 @@ export const DatosContratos = {
             const response = await axios.get(BASEURL + '/Contratos/ContratosFile/' + id, autorization());
             return response.data.file
         } catch (error){
-            NotificacionError.ErrorWMensaje('Ops!', error);
+            console.log(error)
         }
     },
 
@@ -115,7 +115,7 @@ export const DatosContratos = {
             console.log("firma es: " + response.data.firma)
             return response.data.firma;
         } catch (error){
-            NotificacionError.ErrorWMensaje('Ops!', error);
+            console.log(error)
         }
     },
 
@@ -129,6 +129,15 @@ export const DatosContratos = {
             const response = await axios.put(BASEURL + '/Contratos/FirmaUsuario', data, config);
         } catch (error) {
             NotificacionError.ErrorWMensaje('Ops!', error);
+        }
+    },
+
+    getContratoFull: async (id) => {
+        try {
+            const response = await axios.put(BASEURL + '/Contratos/ContratoFull/', id);
+            return response.data.listo;
+        } catch (error) {
+            console.log(error)
         }
     },
 }
