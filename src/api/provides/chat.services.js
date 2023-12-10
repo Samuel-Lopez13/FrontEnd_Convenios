@@ -18,7 +18,7 @@ export const DatosChat = {
 
             return response.data;
         } catch (error) {
-            NotificacionError.ErrorWMensaje('Ops!', error);
+            //NotificacionError.ErrorWMensaje('Ops!', error);
         }
     },
 
@@ -28,7 +28,7 @@ export const DatosChat = {
 
             return response.data;
         } catch (error) {
-            NotificacionError.ErrorWMensaje('Ops!', error);
+            //NotificacionError.ErrorWMensaje('Ops!', error);
         }
     }
 };

@@ -4,6 +4,8 @@
 import {DatosInstituciones} from "@/api/provides/institucion.services";
 import {ref, onMounted, watch} from "vue";
 import store from "@/store";
+import {NotificacionExito, NotificacionFirma, NotificacionAdvertencia} from "@/alertas/alerts";
+import {DatosContratos} from "@/api/provides/contratos.services";
 
 /****************************************             PROPS             ************************************************/
 
@@ -83,6 +85,8 @@ const busqueda = async () => {
 }
 
 const eliminarInstitucion = async (index, id) => {
+  const eliminar = await NotificacionAdvertencia.Eliminar('¿Seguro que deseas eliminar esta institución?')
+  if (eliminar.isConfirmed) {
     //Elimina la institucion visualmente
     instituciones.value.splice(index, 1);
     //Elimina la institucion de la base de datos
@@ -91,15 +95,17 @@ const eliminarInstitucion = async (index, id) => {
     var tamano = 0
 
     //Si esta en busqueda o no dependiendo
-    if(store.state.BusquedaInstituciones === ""){
-        //Verifica que el numero de paginas cambie
-        tamano = await DatosInstituciones.getPaginas()
+    if (store.state.BusquedaInstituciones === "") {
+      //Verifica que el numero de paginas cambie
+      tamano = await DatosInstituciones.getPaginas()
     } else {
-        tamano = await DatosInstituciones.getPaginasBusqueda(store.state.BusquedaInstituciones)
+      tamano = await DatosInstituciones.getPaginasBusqueda(store.state.BusquedaInstituciones)
     }
 
     store.state.Paginacion = tamano.paginas
+  }
 }
+
 </script>
 
 <template>

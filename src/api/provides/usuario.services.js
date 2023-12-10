@@ -37,7 +37,7 @@ export const DatosPersonales = {
             if (error.response && error.response.status === 400) {
                 NotificacionError.ErrorWMensaje('Ops!', 'Escribe tus credenciales');
             } else {
-                NotificacionError.ErrorWMensaje('Ops!', 'Ocurrió un error con tus credenciales');
+                //NotificacionError.ErrorWMensaje('Ops!', 'Ocurrió un error con tus credenciales');
             }
         }
     },
@@ -48,7 +48,7 @@ export const DatosPersonales = {
 
             return response.data;
         } catch (error) {
-            NotificacionError.ErrorWMensaje('Ops!', error);
+           // NotificacionError.ErrorWMensaje('Ops!', error);
         }
     },
 
@@ -57,7 +57,7 @@ export const DatosPersonales = {
             const response = await axios.get(BASEURL + '/Usuario/Paginas', autorization());
             return response.data;
         } catch (error) {
-            NotificacionError.ErrorWMensaje('Ops!', error);
+            //NotificacionError.ErrorWMensaje('Ops!', error);
         }
     },
 
@@ -74,7 +74,7 @@ export const DatosPersonales = {
             const response = await axios.post(BASEURL + '/Usuario/Usuarios', data, config);
             NotificacionExito.ExitosoW("La contraseña del usuario es: " + response.data.contrasena)
         } catch (error) {
-            NotificacionError.ErrorWMensaje('Ops!', error);
+            //NotificacionError.ErrorWMensaje('Ops!', error);
         }
     },
 
@@ -83,7 +83,7 @@ export const DatosPersonales = {
             const response = await axios.delete(BASEURL + '/Usuario/Usuario/' + id, autorization());
             NotificacionExito.ExitosoWMensaje('usuario eliminado con exito')
         } catch (error) {
-            NotificacionError.ErrorWMensaje('Ops!', error);
+            //NotificacionError.ErrorWMensaje('Ops!', error);
         }
     },
 
@@ -92,7 +92,7 @@ export const DatosPersonales = {
             const response = await axios.get(BASEURL + '/Usuario/Buscar?pagina=' + pagina + '&nombre=' + busqueda, autorization());
             return response.data;
         } catch (error) {
-            NotificacionError.ErrorWMensaje('Ops!', error);
+            //NotificacionError.ErrorWMensaje('Ops!', error);
         }
     },
 
@@ -101,7 +101,7 @@ export const DatosPersonales = {
             const response = await axios.get(BASEURL + '/Usuario/Paginas/' + busqueda, autorization());
             return response.data;
         } catch (error) {
-            NotificacionError.ErrorWMensaje('Ops!', error);
+            //NotificacionError.ErrorWMensaje('Ops!', error);
         }
     },
 
@@ -115,7 +115,7 @@ export const DatosPersonales = {
             const response = await axios.get(BASEURL + '/Contratos/ContratosUsuario', autorization())
             return response.data;
         }catch (error){
-            console.log('No hay contratos para este usuario')
+            //console.log('No hay contratos para este usuario')
         }
     },
 

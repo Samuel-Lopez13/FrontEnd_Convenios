@@ -89,3 +89,20 @@ export const NotificacionFirma = {
         });
     },
 }
+
+export const NotificacionAdvertencia = {
+    Eliminar: async (pregunta = '') => {
+        return await Swal.fire({
+            icon: 'warning',
+            iconColor:'red',
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            showCancelButton: true,
+            html: `<b>${pregunta}</b>`, // Aquí se aplican los estilos necesarios
+            confirmButtonColor: '#d33', // Cambia el color del botón OK
+            cancelButtonColor: '#1B365D', // Cambia el color del botón Cancelar
+            confirmButtonText: 'Eliminar', // Cambia el texto del botón OK
+            cancelButtonText: 'Cancelar' // Cambia el texto del botón Cancelar
+        });
+    },
+}

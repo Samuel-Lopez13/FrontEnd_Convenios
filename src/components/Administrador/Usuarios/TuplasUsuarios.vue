@@ -5,6 +5,7 @@ import {DatosPersonales} from "@/api/provides/usuario.services";
 import {ref, onMounted, watch} from "vue";
 import store from "@/store";
 import {DatosInstituciones} from "@/api/provides/institucion.services";
+import {NotificacionAdvertencia} from "@/alertas/alerts";
 
 /****************************************             PROPS             ************************************************/
 
@@ -81,6 +82,8 @@ const busqueda = async () => {
 }
 
 const eliminarUsuario = async (index, id) => {
+  const eliminar = await NotificacionAdvertencia.Eliminar('¿Seguro que deseas eliminar este usuario?')
+  if (eliminar.isConfirmed) {
     //Elimina al usuario visualmente
     usuarios.value.splice(index, 1);
     //Elimina al usuario de la base de datos
@@ -89,14 +92,15 @@ const eliminarUsuario = async (index, id) => {
     var tamano = 0
 
     //Si esta en busqueda o no dependiendo
-    if(store.state.BusquedaUsuarios === ""){
-        //Verifica que el numero de paginas cambie
-        tamano = await DatosPersonales.getPaginas()
+    if (store.state.BusquedaUsuarios === "") {
+      //Verifica que el numero de paginas cambie
+      tamano = await DatosPersonales.getPaginas()
     } else {
-        tamano = await DatosPersonales.getPaginasBusqueda(store.state.BusquedaUsuarios)
+      tamano = await DatosPersonales.getPaginasBusqueda(store.state.BusquedaUsuarios)
     }
 
     store.state.PaginacionU = tamano.paginas
+  }
 }
 </script>
 

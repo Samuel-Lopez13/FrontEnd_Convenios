@@ -5,6 +5,7 @@ import TuplasUsuarios from "@/components/Administrador/Usuarios/TuplasUsuarios.v
 import AgregarUsuario from "@/components/Administrador/Usuarios/AgregarUsuario.vue";
 import {DatosPersonales} from "@/api/provides/usuario.services";
 import {onMounted, ref, watch} from "vue";
+import {verificarRol} from "@/utils/constantes/Constantes";
 import store from '@/store';
 
 /**************************************             VARIABLES             **********************************************/
@@ -17,6 +18,7 @@ const pagina = ref(1)
 
 onMounted(() => {
     paginacion();
+    verificarRol();
 })
 
 /****************************************             WATCH              ***********************************************/

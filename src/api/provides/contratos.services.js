@@ -11,7 +11,7 @@ export const DatosContratos = {
 
             return response.data;
         } catch (error) {
-            NotificacionError.ErrorWMensaje('Ops!', error);
+            //NotificacionError.ErrorWMensaje('Ops!', error);
         }
     },
 
@@ -20,7 +20,7 @@ export const DatosContratos = {
             const response = await axios.get(BASEURL + '/Contratos/Paginas', autorization());
             return response.data;
         } catch (error) {
-            NotificacionError.ErrorWMensaje('Ops!', error);
+            //NotificacionError.ErrorWMensaje('Ops!', error);
         }
     },
 
@@ -55,7 +55,7 @@ export const DatosContratos = {
             const response = await axios.get(BASEURL + '/Contratos/Buscar?pagina=' + pagina + '&nombre=' + busqueda, autorization());
             return response.data;
         } catch (error) {
-            NotificacionError.ErrorWMensaje('Ops!', error);
+            //NotificacionError.ErrorWMensaje('Ops!', error);
         }
     },
 
@@ -128,7 +128,7 @@ export const DatosContratos = {
             const [data, config] = autorizationJSON(firmaUsuarioJSON);
             const response = await axios.put(BASEURL + '/Contratos/FirmaUsuario', data, config);
         } catch (error) {
-            NotificacionError.ErrorWMensaje('Ops!', error);
+            //NotificacionError.ErrorWMensaje('Ops!', error);
         }
     },
 

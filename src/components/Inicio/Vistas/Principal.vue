@@ -1,5 +1,13 @@
 <script setup>
 import Sidebar from "@/components/Inicio/Vistas/Sidebar.vue";
+import {onMounted} from "vue";
+import {verificarAcceso} from "@/utils/constantes/Constantes";
+import router from "@/router";
+
+onMounted(()=>{
+  verificarAcceso();
+})
+
 </script>
 
 <template>

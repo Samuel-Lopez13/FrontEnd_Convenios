@@ -21,6 +21,8 @@ const btnCambios = ref(true)
 
 const statusF = ref(false);
 const Admin = ref(false)
+const Status = ref("Activo")
+const resultadoFirmar = ref(true);
 
 onMounted(async () => {
     await verificarRol();
@@ -31,7 +33,6 @@ onMounted(async () => {
 
 watch(() => store.state.Revision, () => {
     statusRevision();
-    statusFirma();
     store.state.Revision = false;
 })
 
@@ -108,12 +109,14 @@ const statusFirma = async () => {
         btnFirmar.value = true;
     }
 }
-
 const FirmarContrato = async () => {
-    const resultadoFirma = await NotificacionFirma.Firmar();
+    const resultadoFirma = await NotificacionFirma.Firmar('¿Seguro que deseas aplicar la firma?');
     if (resultadoFirma.isConfirmed) {
         await DatosContratos.FirmaUsuario(idC.value, statusF.value)
         NotificacionExito.ExitosoWMensaje('Firmaste el contrato')
+        console.log()
+        btnFirmar.value = false;
+        Status.value = "Inactivo";
     } else {
         console.log('El usuario no confirmo')
     }
@@ -121,11 +124,12 @@ const FirmarContrato = async () => {
 </script>
 
 <template>
+
     <div class="botones  p-3">
         <div class="fase h4 d-flex justify-content-center align-items-center">
             ACCIONES
         </div>
-        <h5 class="h5 text-center mb-3">Status : A/I</h5>
+        <h5 class="h5 text-center mb-3">Status : {{ Status }}</h5>
         <div class="opciones d-flex flex-column justify-content-between">
             <div class="accione">
                 <div class="botonUser" v-if="!Admin">
@@ -136,25 +140,46 @@ const FirmarContrato = async () => {
                             Mandar a Revisión
                         </button>
                     </form>
-                    <button class="btn btn-success form-label form-control" :class="{ 'disabled': btnFirmar }"
+                    <button class="btn btn-success form-label form-control" :class="{ 'disabled': !btnFirmar }"
                             @click="FirmarContrato">Firmar
                     </button>
                 </div>
-                <div class="botonesAdmin d-flex flex-column" v-if="Admin">
-                    <form class="d-flex flex-column gap-3 align-items-center" @submit.prevent="mandarRevision">
-                        <label class="form-label">Subir una modificación</label>
-                        <input type="file" class="form form-control form-label" @change="obtenerArchivo" accept=".docx">
-                        <button class="btn btn-warning form-label form-control" :class="{ 'disabled': !btnRevisionA }">
-                            Mandar a Revisión
-                        </button>
-                    </form>
-                    <!--<button class="btn btn-danger form-label" :class="{ 'disabled': !btnFirmar }">Cambiar Fase</button>-->
-                    <button class="btn btn-success form-label" :class="{ 'disabled': !btnMandarFirma }"
-                            @click="mandarFirma">Mandar a Firma
-                    </button>
+                <h5 class="h5 text-center mb-3">Status : A/I</h5>
+                <div class="opciones d-flex flex-column justify-content-between">
+                    <div class="accione">
+                        <div class="botonUser" v-if="!Admin">
+                            <form class="d-flex flex-column gap-3 align-items-center" @submit.prevent="mandarRevision">
+                                <label class="form-label">Subir una modificación</label>
+                                <input type="file" class="form form-control form-label" @change="obtenerArchivo"
+                                       accept=".docx">
+                                <button class="btn btn-warning form-label form-control"
+                                        :class="{ 'disabled': !btnRevision }">
+                                    Mandar a Revisión
+                                </button>
+                            </form>
+                            <button class="btn btn-success form-label form-control" :class="{ 'disabled': btnFirmar }"
+                                    @click="FirmarContrato">Firmar
+                            </button>
+                        </div>
+                        <div class="botonesAdmin d-flex flex-column" v-if="Admin">
+                            <form class="d-flex flex-column gap-3 align-items-center" @submit.prevent="mandarRevision">
+                                <label class="form-label">Subir una modificación</label>
+                                <input type="file" class="form form-control form-label" @change="obtenerArchivo"
+                                       accept=".docx">
+                                <button class="btn btn-warning form-label form-control"
+                                        :class="{ 'disabled': !btnRevisionA }">
+                                    Mandar a Revisión
+                                </button>
+                            </form>
+                            <!--<button class="btn btn-danger form-label" :class="{ 'disabled': !btnFirmar }">Cambiar Fase</button>-->
+                            <button class="btn btn-success form-label" :class="{ 'disabled': !btnMandarFirma }"
+                                    @click="mandarFirma">Mandar a Firma
+                            </button>
+                        </div>
+                    </div>
+                    <!--<button class="btn btn-primary form-label" :class="{ 'disabled': !btnCambios }">Verificar Cambios</button>-->
                 </div>
             </div>
-            <!--<button class="btn btn-primary form-label" :class="{ 'disabled': !btnCambios }">Verificar Cambios</button>-->
         </div>
     </div>
 </template>

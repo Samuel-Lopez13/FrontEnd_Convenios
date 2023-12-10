@@ -45,7 +45,7 @@ const irContratoUser = (id) =>{
     name: 'Contrato',
     params: { idContrato: id }
   });
-  currentRoute.value = 'Contrato';
+  currentRoute.value = id;
 }
 
 const salir = async () => {
@@ -83,7 +83,7 @@ const salir = async () => {
         </div>
         <div class="d-flex justify-content-center align-items-center contrato"
              v-for="(ContratosUsuarios, index) in contratosUsuario"
-             :class="{ 'activo': currentRoute === 'idContrato' && currentRoute.params.idContrato === ContratosUsuarios.contratos_Id }"
+             :class="{ 'activo': currentRoute === ContratosUsuarios.contratos_Id }"
              @click="irContratoUser(ContratosUsuarios.contratos_Id)"
         >
           <div class="w-50">
