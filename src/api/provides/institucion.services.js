@@ -11,7 +11,7 @@ export const DatosInstituciones = {
 
             return response.data;
         } catch (error) {
-            NotificacionError.ErrorWMensaje('Ops!', error);
+            //NotificacionError.ErrorWMensaje('Ops!', error);
         }
     },
 
@@ -20,7 +20,7 @@ export const DatosInstituciones = {
             const response = await axios.get(BASEURL + '/Institucion/Paginas', autorization());
             return response.data;
         } catch (error) {
-            NotificacionError.ErrorWMensaje('Ops!', error);
+            //NotificacionError.ErrorWMensaje('Ops!', error);
         }
     },
 
@@ -35,7 +35,7 @@ export const DatosInstituciones = {
             const response = await axios.post(BASEURL + '/Institucion/Institucion', data, config);
             NotificacionExito.ExitosoWMensaje('Institucion registrada con exito')
         } catch (error) {
-            NotificacionError.ErrorWMensaje('Ops!', error);
+           // NotificacionError.ErrorWMensaje('Ops!', error);
         }
     },
 
@@ -44,7 +44,7 @@ export const DatosInstituciones = {
             const response = await axios.delete(BASEURL + '/Institucion/Institucion/' + id, autorization());
             NotificacionExito.ExitosoWMensaje('Institucion eliminada con exito')
         } catch (error) {
-            NotificacionError.ErrorWMensaje('Ops!', error);
+            //NotificacionError.ErrorWMensaje('Ops!', error);
         }
     },
 
@@ -53,7 +53,7 @@ export const DatosInstituciones = {
             const response = await axios.get(BASEURL + '/Institucion/Buscar?pagina=' + pagina + '&nombre=' + busqueda, autorization());
             return response.data;
         } catch (error) {
-            NotificacionError.ErrorWMensaje('Ops!', error);
+            //NotificacionError.ErrorWMensaje('Ops!', error);
         }
     },
 
@@ -62,7 +62,7 @@ export const DatosInstituciones = {
             const response = await axios.get(BASEURL + '/Institucion/Paginas/' + busqueda, autorization());
             return response.data;
         } catch (error) {
-            NotificacionError.ErrorWMensaje('Ops!', error);
+            //NotificacionError.ErrorWMensaje('Ops!', error);
         }
     },
 
@@ -71,7 +71,7 @@ export const DatosInstituciones = {
             const response = await axios.get(BASEURL + '/Institucion/AllInstitution',  autorization());
             return response.data;
         } catch (error) {
-            NotificacionError.ErrorWMensaje('Ops!', error);
+            //NotificacionError.ErrorWMensaje('Ops!', error);
         }
     },
 
@@ -80,7 +80,7 @@ export const DatosInstituciones = {
             const response = await axios.get(BASEURL + '/Institucion/AllInstitution/' + busqueda, autorization());
             return response.data;
         } catch (error) {
-            NotificacionError.ErrorWMensaje('Ops!', error);
+            //NotificacionError.ErrorWMensaje('Ops!', error);
         }
     }
 

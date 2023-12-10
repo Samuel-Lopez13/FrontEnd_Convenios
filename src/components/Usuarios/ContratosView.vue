@@ -9,6 +9,7 @@ import Opciones from "@/components/Usuarios/Opciones.vue";
 import { useRoute } from 'vue-router';
 import store from "@/store";
 import {DatosContratos} from "@/api/provides/contratos.services";
+import {verificarAcceso} from "@/utils/constantes/Constantes";
 /**************************************             VARIABLES             **********************************************/
 
 
@@ -25,6 +26,7 @@ onMounted(() => {
     obtenerChats();
     obtenerRol();
     datosContrato();
+    verificarAcceso();
 })
 
 
@@ -32,6 +34,7 @@ onMounted(() => {
 /*************************************             WATCH            **********************************************/
 
 /****************************************             METODOS             **********************************************/
+
 
 const obtenerRol = async  () =>{
   var rol = await DatosPersonales.userRol();

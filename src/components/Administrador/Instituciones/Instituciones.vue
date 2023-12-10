@@ -5,6 +5,7 @@ import TuplasInstituciones from "@/components/Administrador/Instituciones/Tuplas
 import AgregarInstitucion from "@/components/Administrador/Instituciones/AgregarInstitucion.vue";
 import {DatosInstituciones} from "@/api/provides/institucion.services";
 import {onMounted, ref, watch} from "vue";
+import {verificarRol} from "@/utils/constantes/Constantes";
 import store from '@/store';
 
 /**************************************             VARIABLES             **********************************************/
@@ -17,6 +18,7 @@ const pagina = ref(1)
 
 onMounted(() => {
     paginacion();
+    verificarRol();
 })
 
 /****************************************             WATCH              ***********************************************/

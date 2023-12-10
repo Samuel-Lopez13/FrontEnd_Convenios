@@ -5,7 +5,10 @@ import {onMounted, ref, watch} from "vue";
 import TuplasContratos from "@/components/Administrador/Contratos/TuplasContratos.vue";
 import AgregarContrato from "@/components/Administrador/Contratos/AgregarContrato.vue";
 import {DatosContratos} from "@/api/provides/contratos.services";
+import {DatosPersonales} from "@/api/provides/usuario.services";
 import store from '@/store';
+import {verificarRol} from "@/utils/constantes/Constantes";
+import router from "@/router";
 
 /**************************************             VARIABLES             **********************************************/
 
@@ -17,6 +20,7 @@ const pagina = ref(1)
 
 onMounted(() => {
     paginacion();
+    verificarRol();
 })
 
 /****************************************             WATCH              ***********************************************/
@@ -75,7 +79,6 @@ const busqueda = async () => {
     var tamano = await DatosContratos.getPaginasBusqueda(buscar.value)
     store.state.PaginacionC = tamano.paginas
 }
-
 </script>
 
 <template>
