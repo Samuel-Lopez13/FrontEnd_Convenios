@@ -27,7 +27,7 @@ onMounted(async () => {
     await verificarRol();
     await statusRevision();
     await statusFirma();
-    //await ContratoTerminado();
+    await ContratoTerminado();
 })
 
 watch(() => store.state.Revision, () => {
@@ -35,9 +35,10 @@ watch(() => store.state.Revision, () => {
     store.state.Revision = false;
 })
 
-/*const ContratoTerminado = async () => {
+const ContratoTerminado = async () => {
     btnFirmar.value = await DatosContratos.getContratoFull(idC.value)
-}*/
+    console.log(btnFirmar.value)
+}
 
 const verificarRol = async () => {
     var rol = await DatosPersonales.userRol()
@@ -97,6 +98,8 @@ const mandarRevision = async () => {
 
 const mandarFirma = async () => {
     await DatosContratos.Firma(idC.value)
+    btnMandarFirma.value = false;
+    btnRevisionA.value = false;
 }
 
 const statusFirma = async () => {
@@ -113,7 +116,7 @@ const FirmarContrato = async () => {
     if (resultadoFirma.isConfirmed) {
         await DatosContratos.FirmaUsuario(idC.value, statusF.value)
         NotificacionExito.ExitosoWMensaje('Firmaste el contrato')
-        console.log()
+        ContratoTerminado();
         btnFirmar.value = false;
         Status.value = "Inactivo";
     } else {
@@ -139,7 +142,7 @@ const FirmarContrato = async () => {
                             Mandar a Revisión
                         </button>
                     </form>
-                    <button class="btn btn-success form-label form-control" :class="{ 'disabled': !btnFirmar }"
+                    <button class="btn btn-success form-label form-control" :class="{ 'disabled': btnFirmar }"
                             @click="FirmarContrato">Firmar
                     </button>
                 </div>

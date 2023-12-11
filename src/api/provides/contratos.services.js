@@ -2,6 +2,7 @@ import {autorization, autorizationJSON, sinAutorizationJSON} from '@/api'
 import {NotificacionExito, NotificacionError} from "@/alertas/alerts";
 import axios from "axios";
 import {BASEURL} from "@/utils/constantes/Constantes";
+import config from "bootstrap/js/src/util/config";
 
 export const DatosContratos = {
 
@@ -11,7 +12,7 @@ export const DatosContratos = {
 
             return response.data;
         } catch (error) {
-            //NotificacionError.ErrorWMensaje('Ops!', error);
+            console.log(error)
         }
     },
 
@@ -20,7 +21,7 @@ export const DatosContratos = {
             const response = await axios.get(BASEURL + '/Contratos/Paginas', autorization());
             return response.data;
         } catch (error) {
-            //NotificacionError.ErrorWMensaje('Ops!', error);
+            console.log(error)
         }
     },
 
@@ -37,7 +38,7 @@ export const DatosContratos = {
             NotificacionExito.ExitosoWMensaje('Contrato creado con exito')
         } catch (error) {
             console.log(error)
-            NotificacionError.ErrorWMensaje('Ops!', 'Ocurrio algun error');
+            console.log(error)
         }
     },
 
@@ -46,7 +47,7 @@ export const DatosContratos = {
             const response = await axios.delete(BASEURL + '/Contratos/Contrato/' + id, autorization());
             NotificacionExito.ExitosoWMensaje('Institucion eliminada con exito')
         } catch (error) {
-            NotificacionError.ErrorWMensaje('Ops!', error);
+            console.log(error)
         }
     },
 
@@ -55,7 +56,7 @@ export const DatosContratos = {
             const response = await axios.get(BASEURL + '/Contratos/Buscar?pagina=' + pagina + '&nombre=' + busqueda, autorization());
             return response.data;
         } catch (error) {
-            //NotificacionError.ErrorWMensaje('Ops!', error);
+            console.log(error)
         }
     },
 
@@ -64,7 +65,7 @@ export const DatosContratos = {
             const response = await axios.get(BASEURL + '/Contratos/Paginas/' + busqueda, autorization());
             return response.data;
         } catch (error) {
-            NotificacionError.ErrorWMensaje('Ops!', error);
+            console.log(error)
         }
     },
 
@@ -82,7 +83,7 @@ export const DatosContratos = {
             const response = await axios.get(BASEURL + '/Contratos/ContratosFile/' + id, autorization());
             return response.data.nombre
         } catch (error){
-            NotificacionError.ErrorWMensaje('Ops!', error);
+            console.log(error)
         }
     },
 
@@ -92,7 +93,7 @@ export const DatosContratos = {
             console.log(response.data.revision)
             return response.data.revision;
         } catch (error){
-            NotificacionError.ErrorWMensaje('Ops!', error);
+            console.log(error)
         }
     },
 
@@ -105,7 +106,7 @@ export const DatosContratos = {
             const response = await axios.put(BASEURL + '/Contratos/Firma', data, config);
             NotificacionExito.ExitosoWMensaje('Solicitaste la firma de la contraparte')
         } catch (error) {
-            NotificacionError.ErrorWMensaje('Ops!', error);
+            console.log(error)
         }
     },
 
@@ -128,13 +129,14 @@ export const DatosContratos = {
             const [data, config] = autorizationJSON(firmaUsuarioJSON);
             const response = await axios.put(BASEURL + '/Contratos/FirmaUsuario', data, config);
         } catch (error) {
-            //NotificacionError.ErrorWMensaje('Ops!', error);
+            console.log(error)
         }
     },
 
     getContratoFull: async (id) => {
         try {
-            const response = await axios.put(BASEURL + '/Contratos/ContratoFull/', id);
+            const response = await axios.get(BASEURL + '/Contratos/ContratoFull/' + id, autorization());
+            console.log(response.data.listo)
             return response.data.listo;
         } catch (error) {
             console.log(error)

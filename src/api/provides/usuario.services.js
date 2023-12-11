@@ -35,7 +35,7 @@ export const DatosPersonales = {
             }
         } catch (error) {
             if (error.response && error.response.status === 400) {
-                NotificacionError.ErrorWMensaje('Ops!', 'Escribe tus credenciales');
+                NotificacionError.ErrorWMensaje('Ops!', 'Credenciales Incorrectas');
             } else {
                 //NotificacionError.ErrorWMensaje('Ops!', 'Ocurrió un error con tus credenciales');
             }
