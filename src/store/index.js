@@ -23,6 +23,7 @@ export default new createStore({
 
         //Revision
         Revision: false,
+        FirmaStatus: false
     },
     mutations: {
         setVistaAdmin(state, value) {

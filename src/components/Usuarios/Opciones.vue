@@ -5,7 +5,6 @@ import {DatosContratos} from "@/api/provides/contratos.services";
 import {NotificacionExito, NotificacionFirma} from "@/alertas/alerts";
 import {useRoute} from 'vue-router';
 import store from "@/store";
-import {watchEffect} from "vue";
 
 const route = useRoute();
 const idC = ref(route.params.idContrato);
@@ -28,7 +27,7 @@ onMounted(async () => {
     await verificarRol();
     await statusRevision();
     await statusFirma();
-    await ContratoTerminado();
+    //await ContratoTerminado();
 })
 
 watch(() => store.state.Revision, () => {
@@ -36,9 +35,9 @@ watch(() => store.state.Revision, () => {
     store.state.Revision = false;
 })
 
-const ContratoTerminado = async () => {
+/*const ContratoTerminado = async () => {
     btnFirmar.value = await DatosContratos.getContratoFull(idC.value)
-}
+}*/
 
 const verificarRol = async () => {
     var rol = await DatosPersonales.userRol()
@@ -144,23 +143,6 @@ const FirmarContrato = async () => {
                             @click="FirmarContrato">Firmar
                     </button>
                 </div>
-                <h5 class="h5 text-center mb-3">Status : A/I</h5>
-                <div class="opciones d-flex flex-column justify-content-between">
-                    <div class="accione">
-                        <div class="botonUser" v-if="!Admin">
-                            <form class="d-flex flex-column gap-3 align-items-center" @submit.prevent="mandarRevision">
-                                <label class="form-label">Subir una modificación</label>
-                                <input type="file" class="form form-control form-label" @change="obtenerArchivo"
-                                       accept=".docx">
-                                <button class="btn btn-warning form-label form-control"
-                                        :class="{ 'disabled': !btnRevision }">
-                                    Mandar a Revisión
-                                </button>
-                            </form>
-                            <button class="btn btn-success form-label form-control" :class="{ 'disabled': btnFirmar }"
-                                    @click="FirmarContrato">Firmar
-                            </button>
-                        </div>
                         <div class="botonesAdmin d-flex flex-column" v-if="Admin">
                             <form class="d-flex flex-column gap-3 align-items-center" @submit.prevent="mandarRevision">
                                 <label class="form-label">Subir una modificación</label>
@@ -180,8 +162,6 @@ const FirmarContrato = async () => {
                     <!--<button class="btn btn-primary form-label" :class="{ 'disabled': !btnCambios }">Verificar Cambios</button>-->
                 </div>
             </div>
-        </div>
-    </div>
 </template>
 
 <style scoped>
