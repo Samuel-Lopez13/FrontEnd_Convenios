@@ -108,7 +108,7 @@ const statusFirma = async () => {
         btnRevisionA.value = false;
         btnRevision.value = false;
         btnMandarFirma.value = false;
-        btnFirmar.value = true;
+        //btnFirmar.value = true;
     }
 }
 const FirmarContrato = async () => {
