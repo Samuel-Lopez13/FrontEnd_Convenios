@@ -64,7 +64,7 @@ export const NotificacionError = {
     },
     Error: async (msg="Credenciales no validas") => {
         Swal.fire({
-            background: '#CAA8F5',
+            background: '#fff',
             icon: 'error',
             iconColor:'rgba(224,0,0,0.8)',
             title: msg,
@@ -102,6 +102,22 @@ export const NotificacionAdvertencia = {
             confirmButtonColor: '#d33', // Cambia el color del botón OK
             cancelButtonColor: '#1B365D', // Cambia el color del botón Cancelar
             confirmButtonText: 'Eliminar', // Cambia el texto del botón OK
+            cancelButtonText: 'Cancelar' // Cambia el texto del botón Cancelar
+        });
+    },
+    Revision: async (pregunta = '', msg = '') => {
+        return await Swal.fire({
+            icon: 'warning',
+            iconColor:'#1B365D',
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            showCancelButton: true,
+            html: `<b>${pregunta}</b>
+                    <p>${msg}</p>
+            `, // Aquí se aplican los estilos necesarios
+            confirmButtonColor: '#1B365D', // Cambia el color del botón OK
+            cancelButtonColor: '#d33', // Cambia el color del botón Cancelar
+            confirmButtonText: 'Enviar', // Cambia el texto del botón OK
             cancelButtonText: 'Cancelar' // Cambia el texto del botón Cancelar
         });
     },

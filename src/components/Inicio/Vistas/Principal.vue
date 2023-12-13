@@ -1,12 +1,21 @@
 <script setup>
 import Sidebar from "@/components/Inicio/Vistas/Sidebar.vue";
-import {onMounted} from "vue";
+import {onMounted, ref} from "vue";
 import {verificarAcceso} from "@/utils/constantes/Constantes";
 import router from "@/router";
+import {DatosPersonales} from "@/api/provides/usuario.services";
+
+const nombreUsuario = ref('');
 
 onMounted(()=>{
   verificarAcceso();
+  tipoUsuario();
 })
+
+const tipoUsuario = async () => {
+  var rol = await DatosPersonales.userRol()
+  nombreUsuario.value = rol;
+}
 
 </script>
 
@@ -15,7 +24,7 @@ onMounted(()=>{
         <div class="div1 p-3 d-flex justify-content-between align-items-center" style="background-color: #1B365D; height: 100px; padding-left: 20px; box-shadow: 0 2px 5px rgba(0, 0, 50, 0.5); position: relative; z-index: 1">
             <img src="../../../assets/imagenes/UAC.png" style="width: 150px; height: 75px">
             <div class="User h4" style="color: #fefefe;margin-right: 20px">
-              Administrador/Usuario <i class="bi bi-three-dots-vertical"></i> </div>
+              {{ nombreUsuario }} <i class="bi bi-three-dots-vertical"></i> </div>
         </div>
         <div class="div2 d-flex justify-content-center align-items-center" style="background-color: #1B365D">
           <p class="fs-5" style="color: #fefefe">Todos los derechos reservados © Firma de convenios 2023 | <span class="acerca">Acerca de esta pagina</span></p>

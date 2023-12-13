@@ -79,7 +79,8 @@ const salir = async () => {
         <!-- USUARIO -->
       <div class="user d-flex flex-column align-items-center" v-if="vistaUser">
         <div class="h4 d-flex justify-content-center align-items-center"
-             style="width: 100%; height: 50px;font-weight: bold">CONTRATOS
+             style="width: 100%; height: 50px;font-weight: bold">
+          CONTRATOS
         </div>
         <div class="d-flex justify-content-center align-items-center contrato"
              v-for="(ContratosUsuarios, index) in contratosUsuario"
@@ -90,6 +91,7 @@ const salir = async () => {
             {{ ContratosUsuarios.nombre }}
           </div>
           <i class="bi bi-file-text-fill"></i>
+          <i class="bi bi-exclamation-circle-fill" style="font-size: 12px; margin-left: 5px;color: #d7ac00"></i>
         </div>
 
       </div>

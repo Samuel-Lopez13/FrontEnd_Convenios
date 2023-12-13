@@ -2,9 +2,10 @@
 import {onMounted, ref, watch} from "vue";
 import {DatosPersonales} from "@/api/provides/usuario.services";
 import {DatosContratos} from "@/api/provides/contratos.services";
-import {NotificacionExito, NotificacionFirma} from "@/alertas/alerts";
+import {NotificacionExito, NotificacionFirma, NotificacionAdvertencia, NotificacionError} from "@/alertas/alerts";
 import {useRoute} from 'vue-router';
 import store from "@/store";
+import {DatosChat} from "@/api/provides/chat.services";
 
 const route = useRoute();
 const idC = ref(route.params.idContrato);
@@ -22,6 +23,8 @@ const statusF = ref(false);
 const Admin = ref(false)
 const Status = ref("Activo")
 const resultadoFirmar = ref(true);
+
+const textMensaje = ref("He hecho un nuevo cambio en el documento, ¿Que te parece?")
 
 onMounted(async () => {
     await verificarRol();
@@ -72,29 +75,51 @@ const obtenerArchivo = (event) => {
     fileInput.value = event.target.files;
 }
 const mandarRevision = async () => {
-    const formData = new FormData();
-    console.log(idC.value)
-    formData.append('Contrato_Id', idC.value)
-    for (let i = 0; i < fileInput.value.length; i++) {
-        formData.append('File', fileInput.value[i]);
+  // Verificar si el fileInput tiene valor y es un objeto válido
+  if (!fileInput || !fileInput.value || !fileInput.value.length || fileInput.value.length === 0) {
+    // Muestra una alerta o realiza alguna acción cuando fileInput está vacío
+    NotificacionError.Error('Primero debes seleccionar un archivo');
+    return;
+  }
+
+  const mandarRevisionDialog = await NotificacionAdvertencia.Revision('¿Seguro que deseas mandar el archivo?','Se enviará un mensaje automático a la contraparte.');
+
+  if (!mandarRevisionDialog.isConfirmed) {
+    // El usuario no confirmó, salir de la función
+    return;
+  }
+
+  const formData = new FormData();
+  console.log(idC.value);
+
+  formData.append('Contrato_Id', idC.value);
+
+  for (let i = 0; i < fileInput.value.length; i++) {
+    formData.append('File', fileInput.value[i]);
+  }
+
+  try {
+    const response = await fetch('http://localhost:5193/Contratos/Contratos', {
+      method: 'PUT',
+      body: formData,
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem("Credenciales")}`
+      },
+    });
+
+    if (response.ok) {
+      NotificacionExito.ExitosoWMensaje('Revisión Enviada');
+      MandarMensaje();
+      store.state.Revision = true;
+    } else {
+      throw new Error('Error al crear el contrato');
     }
-    await fetch('http://localhost:5193/Contratos/Contratos', {
-        method: 'PUT',
-        body: formData,
-        headers: {
-            "Authorization": `Bearer ${localStorage.getItem("Credenciales")}`
-        },
-    })
-        .then(async response => {
-            if (response.ok) {
-                NotificacionExito.ExitosoWMensaje('Revision Envida')
-                store.state.Revision = true;
-            } else {
-                throw new Error('Error al crear el contrato');
-            }
-        })
-        .catch(error => console.error('Error:', error))
-}
+  } catch (error) {
+    console.error('Error:', error);
+  }
+};
+
+
 
 const mandarFirma = async () => {
     await DatosContratos.Firma(idC.value)
@@ -123,6 +148,12 @@ const FirmarContrato = async () => {
         console.log('El usuario no confirmo')
     }
 }
+
+//MANDAR MENSAJE PREDETERMINADO
+const MandarMensaje = async () => {
+  await DatosChat.postMensaje(textMensaje.value,idC.value);
+  textMensaje.value = "";
+}
 </script>
 
 <template>
@@ -137,7 +168,9 @@ const FirmarContrato = async () => {
                 <div class="botonUser" v-if="!Admin">
                     <form class="d-flex flex-column gap-3 align-items-center" @submit.prevent="mandarRevision">
                         <label class="form-label">Subir una modificación</label>
-                        <input type="file" class="form form-control form-label" @change="obtenerArchivo" accept=".docx">
+                        <input type="file" class="form form-control form-label" @change="obtenerArchivo" accept=".docx"
+                        :disabled="!btnRevision"
+                        >
                         <button class="btn btn-warning form-label form-control" :class="{ 'disabled': !btnRevision }">
                             Mandar a Revisión
                         </button>
@@ -150,7 +183,9 @@ const FirmarContrato = async () => {
                             <form class="d-flex flex-column gap-3 align-items-center" @submit.prevent="mandarRevision">
                                 <label class="form-label">Subir una modificación</label>
                                 <input type="file" class="form form-control form-label" @change="obtenerArchivo"
-                                       accept=".docx">
+                                       accept=".docx"
+                                       :disabled="!btnRevisionA"
+                                >
                                 <button class="btn btn-warning form-label form-control"
                                         :class="{ 'disabled': !btnRevisionA }">
                                     Mandar a Revisión

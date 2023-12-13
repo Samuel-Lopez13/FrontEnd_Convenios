@@ -6,7 +6,32 @@ const router = createRouter({
         {
             path: '/',
             name: 'Login',
-            component: () => import('../components/Inicio/Login.vue')
+            redirect: '/IniciarSesion',
+            component: () => import('../components/Inicio/Login.vue'),
+            children:[
+                {
+                    path:'/IniciarSesion',
+                    name:'Log In',
+                    component:()=>import('../components/Inicio/Login/InicioSesion.vue')
+                },
+                {
+                    path: '/RecuperarClave',
+                    name: 'RecuperarClave',
+                    component:()=>import('../components/Inicio/Login/Contraeña/RecuperarClave.vue')
+
+                },
+                {
+                    path:'/VerificarCodigo',
+                    name:'VerificarCodigo',
+                    component:()=>import('../components/Inicio/Login/Contraeña/VerificarCodigo.vue')
+                },
+                {
+                    path:'/ReestablecerClave',
+                    name:'ReestablecerClave',
+                    component:()=>import('../components/Inicio/Login/Contraeña/ReestablecerClave.vue')
+                },
+
+            ]
         },
         {
             path: '/Inicio',
