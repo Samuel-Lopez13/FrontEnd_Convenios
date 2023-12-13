@@ -44,7 +44,8 @@ const ContratoTerminado = async () => {
 }
 
 const verificarRol = async () => {
-    var rol = await DatosPersonales.userRol()
+    var data = await DatosPersonales.userRol()
+    var rol = data.rol
     console.log(rol)
     if (rol === "Administrador") {
         Admin.value = true;

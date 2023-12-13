@@ -107,7 +107,7 @@ export const DatosPersonales = {
 
     userRol: async () =>{
         const response2 = await axios.get(BASEURL + '/Usuario/Rol', autorization());
-        return response2.data.rol;
+        return response2.data;
     },
 
     getContratosUser : async () =>{

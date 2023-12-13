@@ -29,15 +29,14 @@ onMounted(() => {
     verificarAcceso();
 })
 
-
-
 /*************************************             WATCH            **********************************************/
 
 /****************************************             METODOS             **********************************************/
 
 
 const obtenerRol = async  () =>{
-  var rol = await DatosPersonales.userRol();
+  var data = await DatosPersonales.userRol();
+  var rol = data.rol
   if (rol === "Usuario"){
     watch(() => route.params.idContrato, (newIdContrato) => {
       idContrato.value = newIdContrato;
