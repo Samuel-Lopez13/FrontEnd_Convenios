@@ -11,8 +11,8 @@ export const verificarAcceso =  () => {
 }
 
 export const verificarRol = async () => {
-    var rol = await DatosPersonales.userRol();
-    console.log(rol);
+    var data = await DatosPersonales.userRol();
+    var rol = data.rol;
     if (rol === "Usuario") {
         router.push('/Terminos')
     }

@@ -6,25 +6,35 @@ import router from "@/router";
 import {DatosPersonales} from "@/api/provides/usuario.services";
 
 const nombreUsuario = ref('');
+const Administrador = ref(false);
 
 onMounted(()=>{
   verificarAcceso();
   tipoUsuario();
+  verificarAdmin();
 })
 
 const tipoUsuario = async () => {
-  var rol = await DatosPersonales.userRol()
-  nombreUsuario.value = rol;
+  var data = await DatosPersonales.userRol()
+  nombreUsuario.value = data.nombre;
 }
-
+const verificarAdmin = async () => {
+  var data = await DatosPersonales.userRol();
+  var rol = data.rol;
+  if (rol === "Administrador") {
+    Administrador.value = true;
+  }
+}
 </script>
 
 <template>
     <div class="parent w-100 vh-100">
         <div class="div1 p-3 d-flex justify-content-between align-items-center" style="background-color: #1B365D; height: 100px; padding-left: 20px; box-shadow: 0 2px 5px rgba(0, 0, 50, 0.5); position: relative; z-index: 1">
             <img src="../../../assets/imagenes/UAC.png" style="width: 150px; height: 75px">
-            <div class="User h4" style="color: #fefefe;margin-right: 20px">
-              {{ nombreUsuario }} <i class="bi bi-three-dots-vertical"></i> </div>
+            <div class="User h4 d-flex" style="color: #fefefe;margin-right: 20px">
+                {{ nombreUsuario }}  <span v-if="Administrador" style="margin-left: 5px; color:#d7ac00">(Administrador)</span>  <i class="bi bi-three-dots-vertical"></i>
+
+            </div>
         </div>
         <div class="div2 d-flex justify-content-center align-items-center" style="background-color: #1B365D">
           <p class="fs-5" style="color: #fefefe">Todos los derechos reservados © Firma de convenios 2023 | <span class="acerca">Acerca de esta pagina</span></p>

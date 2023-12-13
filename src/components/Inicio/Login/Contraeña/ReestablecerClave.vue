@@ -25,7 +25,7 @@ const verClave2 = () =>{
   }
 }
 
-const cambiarContraseña = () =>{
+const cambiarContraseña = () => {
   router.push('/IniciarSesion')
 }
 </script>
