@@ -2,7 +2,7 @@
 /****************************************             IMPORT             ***********************************************/
 
 import store from '@/store';
-import {onMounted, ref} from "vue";
+import {onMounted, ref, watch} from "vue";
 import {DatosPersonales} from "@/api/provides/usuario.services";
 import {DatosInstituciones} from "@/api/provides/institucion.services";
 
@@ -14,17 +14,20 @@ const Institucion = ref("");
 const Id_Institucion = ref(0);
 const Busqueda = ref("");
 const Instituciones = ref([]);
-
+const CamposListos = ref(false)
 /*************************************             ON MOUNTED             **********************************************/
 
 onMounted(() => {
     TodasInsituciones();
 })
 
+watch([() => Nombre.value,() => Email.value, () => Institucion.value], ([newNombre,newEmail, newInstitucion]) => {
+  // Lógica a ejecutar cuando cualquiera de los valores cambie
+  activacionBotonU();
+});
 /*****************************************             EMIT             ************************************************/
 
 const emit = defineEmits('cerrar-ventana')
-
 /****************************************             METODOS             **********************************************/
 
 const seleccionado = (id, nombre) => {
@@ -69,6 +72,15 @@ const cerrarVentana = () => {
     emit('cerrar-ventana');
 }
 
+const activacionBotonU = () => {
+  if (Nombre.value !== ""
+      && Email.value !== "" &&
+      Institucion.value !== "") {
+    CamposListos.value = true;
+  } else {
+    CamposListos.value = false;
+  }
+}
 </script>
 
 <template>
@@ -100,7 +112,10 @@ const cerrarVentana = () => {
                 </div>
                 <input type="text" readonly class="form-control form-label" v-model="Institucion">
             </div>
-            <div class="btn btn-primary form-label d-flex justify-content-center align-items-center" @click="agregarUsuario">Agregar</div>
+            <div class="btn btn-primary form-label d-flex justify-content-center align-items-center"
+                 @click="agregarUsuario"
+                 :class="{ 'disabled': !CamposListos }"
+            >Agregar</div>
         </form>
     </div>
 </template>

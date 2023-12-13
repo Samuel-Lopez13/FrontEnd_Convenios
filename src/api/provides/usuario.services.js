@@ -81,7 +81,7 @@ export const DatosPersonales = {
     deleteUsuario: async (id) => {
         try {
             const response = await axios.delete(BASEURL + '/Usuario/Usuario/' + id, autorization());
-            NotificacionExito.ExitosoWMensaje('usuario eliminado con exito')
+            NotificacionExito.ExitosoWMensaje('Usuario eliminado con exito')
         } catch (error) {
             //NotificacionError.ErrorWMensaje('Ops!', error);
         }

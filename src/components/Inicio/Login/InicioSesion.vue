@@ -33,7 +33,7 @@ const irRecuperarClave = () =>{
     </div>
     <div class="form-outline mb-4">
       <label class="form-label" for="form2Example17">Correo Electronico</label>
-      <input v-model="Correo" type="email" id="form2Example17" class="form-control form-control-lg" />
+      <input v-model="Correo" type="email" id="form2Example17" class="form-control form-control-lg"/>
     </div>
     <div class="form-outline mb-4">
       <label class="form-label" for="form2Example27">Contraseña</label>

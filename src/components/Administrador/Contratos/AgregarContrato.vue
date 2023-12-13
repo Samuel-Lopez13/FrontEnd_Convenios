@@ -7,6 +7,7 @@ import {DatosContratos} from "@/api/provides/contratos.services";
 import {DatosInstituciones} from "@/api/provides/institucion.services";
 import {DatosPersonales} from "@/api/provides/usuario.services";
 import {NotificacionExito} from "@/alertas/alerts";
+import {watch} from "vue";
 
 /**************************************             VARIABLES             **********************************************/
 
@@ -17,6 +18,7 @@ const Institucion = ref("");
 const Id_Institucion = ref(0);
 const Busqueda = ref("");
 const Instituciones = ref([]);
+const CamposListos = ref(false)
 
 /*************************************             ON MOUNTED             **********************************************/
 
@@ -24,6 +26,10 @@ onMounted(() => {
     TodasInsituciones();
 })
 
+watch([() => Nombre.value, () => Descripcion.value, () => Archivo.value, () => Institucion.value], ([newNombre, newDesc, newArch, newInstitucion]) => {
+  // Lógica a ejecutar cuando cualquiera de los valores cambie
+  activacionBoton();
+});
 /*****************************************             EMIT             ************************************************/
 
 const emit = defineEmits('cerrar-ventana')
@@ -78,15 +84,16 @@ const agregarContrato = async () => {
         .then(response => {
             if (response.ok) {
                 NotificacionExito.ExitosoWMensaje('Contrato creado con exito')
-            } else {
-                throw new Error('Error al crear el contrato');
+                cerrarVentana()
+            }else {
+              console.log('error')
             }
         })
         .catch(error => console.error('Error:', error))
     //Cuando cambie se actualizaran las instituciones
     store.state.CrearContrato = true
 
-    cerrarVentana()
+
 
     //Verifica que el numero de paginas cambie
     var tamano = await DatosContratos.getPaginas()
@@ -101,6 +108,15 @@ const handleGetFile = (event) => {
 const cerrarVentana = () => {
     emit('cerrar-ventana');
 }
+
+const activacionBoton = () => {
+  if (Nombre.value !== "" && Descripcion.value !== "" && Archivo.value != null && Institucion.value !== "") {
+    CamposListos.value = true;
+  } else {
+    CamposListos.value = false;
+  }
+};
+
 </script>
 
 <template>
@@ -137,7 +153,7 @@ const cerrarVentana = () => {
                 <input type="text" readonly class="form-control form-label" v-model="Institucion">
             </div>
             <div class="btn btn-primary form-label d-flex justify-content-center align-items-center"
-                 @click="agregarContrato">Agregar
+                 @click="agregarContrato" :class="{ 'disabled': !CamposListos }">Agregar
             </div>
         </form>
     </div>

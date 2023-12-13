@@ -3,12 +3,17 @@
 
 import {DatosInstituciones} from "@/api/provides/institucion.services";
 import store from '@/store';
-import {onMounted, ref} from "vue";
+import {onMounted, ref, watch} from "vue";
 
 /**************************************             VARIABLES             **********************************************/
 
 const Nombre = ref("");
+const CamposListos =ref(false)
 
+
+watch(() => Nombre.value, (newValue) => {
+  campos(); // Llama a la función campos() cuando el valor de Nombre.value cambia
+});
 /*****************************************             EMIT             ************************************************/
 
 const emit = defineEmits('cerrar-ventana')
@@ -32,6 +37,14 @@ const cerrarVentana = () => {
     emit('cerrar-ventana');
 }
 
+const campos = () =>{
+  if (Nombre.value != ""){
+    CamposListos.value = true;
+  }else{
+    CamposListos.value = false;
+  }
+}
+
 </script>
 
 <template>
@@ -45,7 +58,7 @@ const cerrarVentana = () => {
                 <input type="text" class="form form-control form-label" v-model="Nombre">
             </div>
             <div class="btn btn-primary form-label d-flex justify-content-center align-items-center"
-                 @click="agregarInstitucion">Agregar
+                 @click="agregarInstitucion" :class="{ 'disabled': !CamposListos }">Agregar
             </div>
         </form>
     </div>

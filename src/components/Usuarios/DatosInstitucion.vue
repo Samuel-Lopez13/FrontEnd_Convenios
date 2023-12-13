@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import {ref, watch} from 'vue';
 import router from "@/router";
 import {NotificacionError} from "@/alertas/alerts";
 import {DatosInstituciones} from "@/api/provides/institucion.services";
@@ -9,17 +9,29 @@ const estado = ref("");
 const ciudad = ref("");
 const identificacion = ref("");
 const direccion = ref("");
+const boton = ref(false);
 
 const checkboxChecked = ref(false);
 const emit = defineEmits('CerrarDatosInst')
 
+
+watch([() => pais.value,() => estado.value, () => ciudad.value,() => identificacion.value, () => direccion.value, () => checkboxChecked.value], ([newNombre,newEmail, newInstitucion, newDirec, newIdent,newcheckboxChecked]) => {
+  // Lógica a ejecutar cuando cualquiera de los valores cambie
+  validarBoton();
+});
 const Modificar = async () =>{
     await DatosInstituciones.updateInstitucion(pais.value,estado.value,ciudad.value,identificacion.value,direccion.value)
     emit('CerrarDatosInst')
 }
 
-const enviarFormulario = () =>{
-
+const validarBoton = () =>{
+  if (pais.value != "" && estado.value != "" &&
+      ciudad.value != "" && identificacion.value != ""
+      && direccion.value != "" && checkboxChecked.value === true){
+    boton.value = true;
+  }else{
+    boton.value = false;
+  }
 }
 </script>
 
@@ -54,7 +66,7 @@ const enviarFormulario = () =>{
           <input type="checkbox" class="form-check" v-model="checkboxChecked">
           <p style="margin-bottom: 0; margin-left: 5px">Manifiesto que los datos escritos son correctos</p>
         </div>
-        <div class="btn btn-primary form-label d-flex justify-content-center align-items-center" :class="{ 'disabled': !checkboxChecked }" @click="Modificar">
+        <div class="btn btn-primary form-label d-flex justify-content-center align-items-center" :class="{ 'disabled': !boton}" @click="Modificar">
           Enviar
         </div>
       </div>
