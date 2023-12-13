@@ -6,6 +6,7 @@ import {NotificacionExito, NotificacionFirma, NotificacionAdvertencia, Notificac
 import {useRoute} from 'vue-router';
 import store from "@/store";
 import {DatosChat} from "@/api/provides/chat.services";
+import VerificarCambios from "@/components/Usuarios/verificarCambios.vue";
 
 const route = useRoute();
 const idC = ref(route.params.idContrato);
@@ -21,8 +22,9 @@ const btnCambios = ref(true)
 
 const statusF = ref(false);
 const Admin = ref(false)
-const Status = ref("Activo")
+const Status = ref("")
 const resultadoFirmar = ref(true);
+const cambios = ref(false)
 
 const textMensaje = ref("He hecho un nuevo cambio en el documento, ¿Que te parece?")
 
@@ -31,6 +33,7 @@ onMounted(async () => {
     await statusRevision();
     await statusFirma();
     await ContratoTerminado();
+    await statusContrato();
 })
 
 watch(() => store.state.Revision, () => {
@@ -144,7 +147,6 @@ const FirmarContrato = async () => {
         NotificacionExito.ExitosoWMensaje('Firmaste el contrato')
         ContratoTerminado();
         btnFirmar.value = false;
-        Status.value = "Inactivo";
     } else {
         console.log('El usuario no confirmo')
     }
@@ -155,6 +157,18 @@ const MandarMensaje = async () => {
   await DatosChat.postMensaje(textMensaje.value,idC.value);
   textMensaje.value = "";
 }
+
+const statusContrato =  async () =>{
+  Status.value = await DatosContratos.getContratoStatus(idC.value)
+}
+
+const verCambios =  () => {
+  cambios.value = !cambios.value;
+}
+
+const noCerrarCambios = (event) => {
+    event.stopPropagation();
+}
 </script>
 
 <template>
@@ -163,7 +177,7 @@ const MandarMensaje = async () => {
         <div class="fase h4 d-flex justify-content-center align-items-center">
             ACCIONES
         </div>
-        <h5 class="h5 text-center mb-3">Status : {{ Status }}</h5>
+        <h5 class="h5 text-center mb-3">Estado: {{ Status }}</h5>
         <div class="opciones d-flex flex-column justify-content-between">
             <div class="accione">
                 <div class="botonUser" v-if="!Admin">
@@ -198,7 +212,10 @@ const MandarMensaje = async () => {
                             </button>
                         </div>
                     </div>
-                    <!--<button class="btn btn-primary form-label" :class="{ 'disabled': !btnCambios }">Verificar Cambios</button>-->
+                    <button class="btn btn-primary form-label" :class="{ 'disabled': !btnCambios }" @click="verCambios">Verificar Cambios</button>
+                  <div class="ventanaCambios h-100 w-100 d-flex align-items-center justify-content-center" v-if="cambios">
+                      <verificar-cambios @click="noCerrarCambios" @cerrarCambios="verCambios"/>
+                  </div>
                 </div>
             </div>
 </template>
@@ -223,5 +240,13 @@ const MandarMensaje = async () => {
     width: 15%;
     height: 100%;
     border-right: 1px solid #cccccc;
+}
+
+.ventanaCambios{
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.6); /* Opacidad aumentada */
+  z-index: 1000; /* Z-index aumentado */
 }
 </style>

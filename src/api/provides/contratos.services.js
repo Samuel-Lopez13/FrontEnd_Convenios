@@ -142,4 +142,13 @@ export const DatosContratos = {
             console.log(error)
         }
     },
+    getContratoStatus: async (id) => {
+        try {
+            const response = await axios.get(BASEURL + '/Contratos/Status/' + id, autorization());
+            console.log(response.data.status)
+            return response.data.status;
+        } catch (error) {
+            console.log(error)
+        }
+    },
 }

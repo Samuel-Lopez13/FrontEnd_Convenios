@@ -11,7 +11,7 @@
           <div class="card" style="border-radius: 1rem;">
             <div class="row g-0">
               <div class="col-md-6 col-lg-12 d-flex align-items-center">
-                <div class="card-body  p-lg-5 text-black">
+                <div class="card-body p-lg-5 text-black">
                   <router-view></router-view>
                 </div>
               </div>
