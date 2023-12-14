@@ -40,6 +40,11 @@ const router = createRouter({
             component: () => import('../components/Inicio/Vistas/Principal.vue'),
             children: [
                 {
+                    path: '/:pathMatch(.*)*',
+                    name: 'NotFound',
+                    component: () => import('../components/Inicio/NotFound.vue')
+                },
+                {
                     path: '/Contratos',
                     name: 'ContratosAdmin',
                     component: () => import('../components/Administrador/Contratos/Contratos.vue')

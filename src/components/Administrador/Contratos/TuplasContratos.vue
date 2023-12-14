@@ -144,7 +144,21 @@ const irContratoUser = (id) =>{
 </template>
 
 <style scoped>
+.custom-loader {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 8px solid;
+  border-color: #E4E4ED;
+  border-right-color: #1B365D;
+  animation: s2 1s infinite linear;
+}
 
+@keyframes s2 {
+  to {
+    transform: rotate(1turn)
+  }
+}
 .irContrato:hover{
   cursor: pointer;
   color: royalblue;

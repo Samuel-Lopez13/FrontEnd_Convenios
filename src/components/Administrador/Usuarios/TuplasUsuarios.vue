@@ -108,8 +108,6 @@ const eliminarUsuario = async (index, id) => {
     <tr class="contenedor" v-if="carga">
         <td></td>
         <td></td>
-        <td></td>
-        <td></td>
         <td class="d-flex align-items-center contenedor">
             <div class="custom-loader"></div>
         </td>
@@ -118,7 +116,7 @@ const eliminarUsuario = async (index, id) => {
         <td></td>
     </tr>
   <tr v-for="(usuarios, index) in usuarios" v-if="!carga">
-    <th>{{index + 1}}</th>
+    <td>{{index + 1}}</td>
     <td>{{ usuarios.nombre }}</td>
     <td>{{ usuarios.email }}</td>
     <td>{{ usuarios.institucion }}</td>
@@ -128,6 +126,21 @@ const eliminarUsuario = async (index, id) => {
 </template>
 
 <style scoped>
+.custom-loader {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 8px solid;
+  border-color: #E4E4ED;
+  border-right-color: #1B365D;
+  animation: s2 1s infinite linear;
+}
+
+@keyframes s2 {
+  to {
+    transform: rotate(1turn)
+  }
+}
 .edit:hover {
   color: royalblue;
   cursor: pointer;
