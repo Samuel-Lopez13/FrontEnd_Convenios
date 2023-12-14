@@ -9,6 +9,7 @@ const vistaAdmin = ref(store.state.vistaAdmin);
 const vistaUser = ref(store.state.vistaUser);
 const currentRoute = ref(router.currentRoute.value.name);
 const contratosUsuario = ref([])
+const btnSalir = ref(false)
 
 onMounted(() => {
   verContratosUsuarios()
@@ -49,8 +50,11 @@ const irContratoUser = (id) =>{
 }
 
 const salir = async () => {
+  btnSalir.value = true;
+  setTimeout(function () {
     localStorage.removeItem(CREDENCIALES);
     router.push('/');
+  }, 1000);
 };
 
 const esRutaContrato = (idContrato) => {
@@ -130,7 +134,7 @@ const esRutaContratoAdmin = () =>{
                 <i class="bi bi-people"></i>
             </div>
         </div>
-        <div class="d-flex justify-content-center align-items-center salir" @click="salir">
+        <div class="d-flex justify-content-center align-items-center salir" @click="salir" :class="{ 'salido': btnSalir }">
             <div class="w-50">
                 SALIR
             </div>
@@ -140,6 +144,10 @@ const esRutaContratoAdmin = () =>{
 </template>
 
 <style scoped>
+.salido{
+  background-color: #a6a1a1;
+  pointer-events: none;
+}
 .salir {
     width: 100%;
     height: 50px;
