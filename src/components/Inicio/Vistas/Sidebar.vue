@@ -45,13 +45,21 @@ const irContratoUser = (id) =>{
     name: 'Contrato',
     params: { idContrato: id }
   });
-  currentRoute.value = id;
+ // currentRoute.value = id;
 }
 
 const salir = async () => {
     localStorage.removeItem(CREDENCIALES);
     router.push('/');
 };
+
+const esRutaContrato = (idContrato) => {
+  return router.currentRoute.value.name === 'Contrato' && router.currentRoute.value.params.idContrato === idContrato.toString();
+};
+
+const esRutaContratoAdmin = () =>{
+  return router.currentRoute.value.name.startsWith('Contrato');
+}
 
 
 
@@ -84,7 +92,7 @@ const salir = async () => {
         </div>
         <div class="d-flex justify-content-center align-items-center contrato"
              v-for="(ContratosUsuarios, index) in contratosUsuario"
-             :class="{ 'activo': currentRoute === ContratosUsuarios.contratos_Id }"
+             :class="{ 'activo': esRutaContrato(ContratosUsuarios.contratos_Id) }"
              @click="irContratoUser(ContratosUsuarios.contratos_Id)"
         >
           <div class="w-50">
@@ -101,7 +109,7 @@ const salir = async () => {
                  style="width: 100%; height: 50px;font-weight: bold">REGISTROS
             </div>
             <div class="d-flex justify-content-center align-items-center contrato" @click="irContratos"
-                 :class="{ 'activo': currentRoute === 'ContratosAdmin' }">
+                 :class="{ 'activo': esRutaContratoAdmin() }">
                 <div class="w-50">
                     Contratos
                 </div>
