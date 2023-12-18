@@ -25,7 +25,8 @@ const Admin = ref(false)
 const Status = ref("")
 const resultadoFirmar = ref(true);
 const cambios = ref(false)
-
+const descargar = ref(false)
+const props = defineProps(['fileDescarga']);
 const textMensaje = ref("He hecho un nuevo cambio en el documento, ¿Que te parece?")
 
 onMounted(async () => {
@@ -169,6 +170,10 @@ const verCambios =  () => {
 const noCerrarCambios = (event) => {
     event.stopPropagation();
 }
+
+const descargaArchivo = () =>{
+  descargar.value= true;
+}
 </script>
 
 <template>
@@ -212,7 +217,13 @@ const noCerrarCambios = (event) => {
                             </button>
                         </div>
                     </div>
-                    <button class="btn btn-primary form-label" :class="{ 'disabled': !btnCambios }" @click="verCambios">Verificar Cambios</button>
+                    <div class="w-100">
+                      <iframe v-if="descargar"
+                              :src="fileDescarga"
+                      ></iframe>
+                      <button class="btn btn-dark form-label form-control" @click="descargaArchivo">Descargar</button>
+                      <button class="btn btn-primary form-label form-control" :class="{ 'disabled': !btnCambios }" @click="verCambios">Verificar Cambios</button>
+                    </div>
                   <div class="ventanaCambios h-100 w-100 d-flex align-items-center justify-content-center" v-if="cambios">
                       <verificar-cambios @click="noCerrarCambios" @cerrarCambios="verCambios"/>
                   </div>

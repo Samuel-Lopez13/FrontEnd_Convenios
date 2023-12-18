@@ -20,6 +20,7 @@ const chat = ref([]);
 const textMensaje = ref("");
 const NombreContrato = ref("");
 const fileContrato = ref("");
+const fileDescarga = ref("");
 /*************************************             ON MOUNTED             **********************************************/
 
 onMounted(() => {
@@ -66,6 +67,8 @@ const datosContrato = async () =>{
   NombreContrato.value= await DatosContratos.contratoNombre(idContrato.value);
   var files = await DatosContratos.contratoFile(idContrato.value)
   fileContrato.value = "https://docs.google.com/viewer?url=" + files + "&embedded=true"
+  fileDescarga.value = files;
+  console.log("DATOS DE DESCARGA" + fileDescarga)
 }
 </script>
 
@@ -77,7 +80,7 @@ const datosContrato = async () =>{
                 style="width:800px; height:100%;">
             </iframe>
         </div>
-        <opciones/>
+        <opciones :fileDescarga="fileDescarga"/>
         <div class="chat bg-light">
             <div class="nombreContrato h3 m-0 d-flex align-items-center justify-content-center">
               {{ NombreContrato }}
