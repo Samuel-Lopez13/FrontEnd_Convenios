@@ -173,6 +173,9 @@ const noCerrarCambios = (event) => {
 
 const descargaArchivo = () =>{
   descargar.value= true;
+  setTimeout(() => {
+    descargar.value = false;
+  }, 100);
 }
 </script>
 
